@@ -1,0 +1,3204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>FocusFlow - Neon Pulse Theme</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <style>
+        /* ============================================
+                   LOADING SCREEN - CYBER GLITCH
+                   ============================================ */
+        .loading-screen-neon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #0A0A12;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 38px;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            overflow: hidden;
+        }
+        
+        .loading-screen-neon.hidden {
+            opacity: 0;
+            transform: scale(1.05);
+            pointer-events: none;
+        }
+        
+        /* Cyber Grid Background for Loading */
+        .loading-screen-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: gridScrollLoad 15s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes gridScrollLoad {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 30px); }
+        }
+        
+        /* Scanning Line Effect */
+        .loading-screen-neon::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            opacity: 0.3;
+            animation: scanLine 2.5s ease-in-out infinite;
+            pointer-events: none;
+            filter: drop-shadow(0 0 10px var(--neon-cyan));
+        }
+        
+        @keyframes scanLine {
+            0% { top: -100%; }
+            100% { top: 200%; }
+        }
+        
+        /* Loading Content */
+        .loading-content-neon {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Logo with Neon Ring */
+        .loading-logo-neon-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        /* Multiple Neon Rings */
+        .loading-ring-neon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+        }
+        
+        .loading-ring-neon.ring-1 {
+            border-top-color: var(--neon-cyan);
+            border-right-color: var(--neon-cyan);
+            animation: spinRing 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            filter: drop-shadow(0 0 20px var(--neon-cyan-glow));
+        }
+        
+        .loading-ring-neon.ring-2 {
+            border-bottom-color: var(--neon-pink);
+            border-left-color: var(--neon-pink);
+            animation: spinRing 2s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+            filter: drop-shadow(0 0 20px var(--neon-pink-glow));
+            width: 110px;
+            height: 110px;
+            top: 10px;
+            left: 10px;
+        }
+        
+        .loading-ring-neon.ring-3 {
+            border-top-color: var(--neon-purple);
+            border-bottom-color: var(--neon-purple);
+            animation: spinRing 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            filter: drop-shadow(0 0 20px var(--neon-purple-glow));
+            width: 90px;
+            height: 90px;
+            top: 20px;
+            left: 20px;
+        }
+        
+        @keyframes spinRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Logo Text */
+        .loading-logo-neon {
+            font-size: 28px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            background: var(--gradient-cyber);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 3px;
+            z-index: 2;
+            animation: logoGlitch 3s ease-in-out infinite;
+            text-shadow: 0 0 40px rgba(0, 240, 255, 0.1);
+        }
+        
+        @keyframes logoGlitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 0); }
+            94% { transform: translate(2px, 0); }
+            96% { transform: translate(-1px, 0); }
+            98% { transform: translate(1px, 0); }
+        }
+        
+        /* Glitch Text Effect */
+        .loading-glitch-text {
+            font-size: 10px;
+            font-weight: 700;
+            font-family: var(--font-display);
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            position: relative;
+        }
+        
+        .loading-glitch-text::before {
+            content: 'INITIALIZING SYSTEM';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: var(--neon-pink);
+            opacity: 0.5;
+            animation: glitchText 0.1s ease-in-out infinite;
+            clip-path: inset(20% 0 60% 0);
+        }
+        
+        .loading-glitch-text::after {
+            content: 'INITIALIZING SYSTEM';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: var(--neon-cyan);
+            opacity: 0.5;
+            animation: glitchText 0.15s ease-in-out infinite reverse;
+            clip-path: inset(60% 0 20% 0);
+        }
+        
+        @keyframes glitchText {
+            0% { transform: translate(-1px, 0); }
+            50% { transform: translate(1px, 0); }
+            100% { transform: translate(-1px, 0); }
+        }
+        
+        /* Progress Container */
+        .loading-progress-neon {
+            width: 220px;
+            margin-top: 16px;
+            position: relative;
+        }
+        
+        .loading-progress-neon .progress-track {
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 9999px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .loading-progress-neon .progress-track::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1), transparent);
+            animation: shimmer 2s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .loading-progress-neon .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--gradient-cyber);
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 20px var(--neon-cyan-glow), 0 0 60px rgba(0, 240, 255, 0.1);
+            position: relative;
+        }
+        
+        .loading-progress-neon .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+            border-radius: 9999px;
+        }
+        
+        /* Percentage Display */
+        .loading-percent-neon {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            font-family: var(--font-display);
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        
+        .loading-percent-neon .percent-value {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 30px var(--neon-cyan-glow);
+        }
+        
+        .loading-percent-neon .percent-label {
+            color: var(--text-secondary);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* Status Dots */
+        .loading-status-neon {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+            align-items: center;
+        }
+        
+        .loading-status-neon .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            animation: dotPulseNeon 1.4s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        
+        .loading-status-neon .status-dot:nth-child(1) { animation-delay: 0s; }
+        .loading-status-neon .status-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-status-neon .status-dot:nth-child(3) { animation-delay: 0.4s; }
+        .loading-status-neon .status-dot:nth-child(4) { animation-delay: 0.6s; }
+        .loading-status-neon .status-dot:nth-child(5) { animation-delay: 0.8s; }
+        
+        @keyframes dotPulseNeon {
+            0%, 80%, 100% { transform: scale(0.5); opacity: 0.2; background: var(--text-muted); }
+            40% { transform: scale(1.2); opacity: 1; background: var(--neon-cyan); box-shadow: 0 0 20px var(--neon-cyan-glow); }
+        }
+        
+        /* Status Text */
+        .loading-status-text {
+            font-size: 9px;
+            font-family: var(--font-display);
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-top: 10px;
+            opacity: 0.6;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* Skip Button - Neon Style */
+        .loading-skip-neon {
+            position: absolute;
+            bottom: 40px;
+            right: 30px;
+            z-index: 3;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            color: var(--text-muted);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-display);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease 2s forwards;
+        }
+        
+        .loading-skip-neon:hover {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 30px var(--neon-cyan-glow);
+            transform: scale(1.05);
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Version */
+        .loading-version-neon {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.05);
+            font-family: var(--font-display);
+            letter-spacing: 2px;
+            margin-top: 8px;
+        }
+        
+        /* ============================================
+                   CSS VARIABLES - Neon Pulse Theme
+                   ============================================ */
+        :root {
+            /* Primary - Dark Cyberpunk */
+            --bg-primary: #0A0A12;
+            --bg-surface: #12121F;
+            --bg-elevated: #1A1A2E;
+            --bg-card: #0F0F1A;
+            
+            --text-primary: #FFFFFF;
+            --text-secondary: #A8A8C8;
+            --text-muted: #5A5A7A;
+            
+            --neon-cyan: #00F0FF;
+            --neon-cyan-glow: rgba(0, 240, 255, 0.3);
+            --neon-pink: #FF2D95;
+            --neon-pink-glow: rgba(255, 45, 149, 0.3);
+            --neon-purple: #B026FF;
+            --neon-purple-glow: rgba(176, 38, 255, 0.3);
+            --neon-orange: #FF6B35;
+            --neon-orange-glow: rgba(255, 107, 53, 0.3);
+            
+            --gradient-cyan: linear-gradient(135deg, #00F0FF, #0099FF);
+            --gradient-pink: linear-gradient(135deg, #FF2D95, #B026FF);
+            --gradient-orange: linear-gradient(135deg, #FF6B35, #FF2D55);
+            --gradient-cyber: linear-gradient(135deg, #00F0FF 0%, #B026FF 50%, #FF2D95 100%);
+            
+            --border-color: rgba(0, 240, 255, 0.15);
+            --shadow-neon: 0 0 30px rgba(0, 240, 255, 0.1);
+            
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-glitch: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Fonts */
+            --font-display: 'Orbitron', monospace;
+            --font-body: 'Inter', -apple-system, sans-serif;
+        }
+        
+        /* ============================================
+                   RESET & BASE
+                   ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: #06060E;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridScroll 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes gridScroll {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+        
+        /* ============================================
+                   PHONE FRAME
+                   ============================================ */
+        .phone-frame {
+            width: 390px;
+            max-width: 100%;
+            height: 844px;
+            max-height: 95vh;
+            background: var(--bg-primary);
+            border-radius: 38px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 60px rgba(0, 240, 255, 0.05), 0 0 120px rgba(176, 38, 255, 0.03);
+            display: flex;
+            flex-direction: column;
+            z-index: 1;
+        }
+        
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 40px;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink), var(--neon-cyan));
+            background-size: 300% 300%;
+            animation: borderGlow 4s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* ============================================
+                   STATUS BAR
+                   ============================================ */
+        .status-bar {
+            padding: 14px 28px 8px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: transparent;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+            font-family: var(--font-display);
+            letter-spacing: 1px;
+        }
+        
+        .status-bar .time {
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .status-icons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        .status-icons i {
+            color: var(--neon-cyan);
+        }
+        
+        .notch {
+            width: 150px;
+            height: 30px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            border: 1px solid var(--border-color);
+            border-top: none;
+        }
+        
+        /* ============================================
+                   SCROLLABLE CONTENT
+                   ============================================ */
+        .app-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0 20px 20px;
+            scroll-behavior: smooth;
+            opacity: 0;
+            transition: opacity 0.8s ease 0.3s;
+        }
+        
+        .app-content.visible {
+            opacity: 1;
+        }
+        
+        .app-content::-webkit-scrollbar {
+            width: 0;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeInGlitch 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeInGlitch {
+            0% { opacity: 0; transform: translateY(10px) scale(0.98); }
+            50% { opacity: 0.5; transform: translateY(0) scale(1.01); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        /* ============================================
+                   HEADER
+                   ============================================ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 8px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+        
+        .header-left {
+            flex: 1;
+        }
+        
+        .greeting {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: var(--font-display);
+        }
+        
+        .greeting strong {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .main-title {
+            font-size: 22px;
+            font-weight: 900;
+            margin-top: 2px;
+            font-family: var(--font-display);
+            background: var(--gradient-cyber);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .header-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+            position: relative;
+        }
+        
+        .header-icon:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 30px var(--neon-cyan-glow);
+            transform: scale(1.05);
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
+            cursor: pointer;
+            border: 1px solid var(--neon-pink);
+            box-shadow: 0 0 20px var(--neon-pink-glow);
+            font-family: var(--font-display);
+        }
+        
+        .notification-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--neon-pink);
+            border-radius: var(--radius-full);
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            box-shadow: 0 0 15px var(--neon-pink-glow);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        
+        /* ============================================
+                   HOME TAB
+                   ============================================ */
+        /* Cyber Stats */
+        .cyber-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .cyber-stat {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 10px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cyber-stat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 50%, rgba(0, 240, 255, 0.03));
+            pointer-events: none;
+        }
+        
+        .cyber-stat:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 30px var(--neon-cyan-glow);
+            transform: translateY(-2px);
+        }
+        
+        .cyber-stat .stat-number {
+            font-size: 22px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            letter-spacing: 1px;
+        }
+        
+        .cyber-stat .stat-number.cyan {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 30px var(--neon-cyan-glow);
+        }
+        
+        .cyber-stat .stat-number.pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 30px var(--neon-pink-glow);
+        }
+        
+        .cyber-stat .stat-number.purple {
+            color: var(--neon-purple);
+            text-shadow: 0 0 30px var(--neon-purple-glow);
+        }
+        
+        .cyber-stat .stat-label {
+            font-size: 9px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-display);
+        }
+        
+        .cyber-stat .stat-change {
+            font-size: 9px;
+            font-weight: 700;
+            margin-top: 3px;
+            display: inline-block;
+            font-family: var(--font-display);
+        }
+        
+        .cyber-stat .stat-change.up {
+            color: var(--neon-cyan);
+        }
+        
+        .cyber-stat .stat-change.down {
+            color: var(--neon-pink);
+        }
+        
+        /* Progress Ring - Neon Style */
+        .progress-ring-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        
+        .progress-ring-section:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 30px var(--neon-cyan-glow);
+        }
+        
+        .ring-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+        }
+        
+        .ring-container svg {
+            transform: rotate(-90deg);
+        }
+        
+        .ring-bg-neon {
+            fill: none;
+            stroke: var(--bg-elevated);
+            stroke-width: 6;
+        }
+        
+        .ring-progress-neon {
+            fill: none;
+            stroke: url(#neonGradient);
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 99;
+            transition: stroke-dashoffset 1.5s ease;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.3));
+        }
+        
+        .ring-center-neon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .ring-center-neon .percentage {
+            font-size: 22px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: var(--neon-cyan);
+            text-shadow: 0 0 30px var(--neon-cyan-glow);
+            line-height: 1;
+        }
+        
+        .ring-center-neon .label {
+            font-size: 8px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-display);
+        }
+        
+        .ring-details {
+            flex: 1;
+        }
+        
+        .ring-details .goal-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-display);
+        }
+        
+        .ring-details .goal-value {
+            font-size: 20px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            margin: 2px 0 6px;
+            letter-spacing: 1px;
+        }
+        
+        .ring-details .goal-value span {
+            background: var(--gradient-cyan);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .progress-bar-neon {
+            width: 100%;
+            height: 4px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-top: 6px;
+        }
+        
+        .progress-bar-fill-neon {
+            height: 100%;
+            width: 72%;
+            background: var(--gradient-cyber);
+            border-radius: var(--radius-full);
+            transition: width 1s ease;
+            position: relative;
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .ring-details .time-remaining {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+        }
+        
+        .ring-details .time-remaining span {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-family: var(--font-display);
+            letter-spacing: 0.5px;
+        }
+        
+        /* Quick Actions - Neon Grid */
+        .quick-actions-neon {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .quick-action-neon {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 6px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quick-action-neon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.05), transparent 70%);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+        
+        .quick-action-neon:hover::after {
+            opacity: 1;
+        }
+        
+        .quick-action-neon:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 30px var(--neon-cyan-glow);
+        }
+        
+        .quick-action-neon .icon {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 3px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quick-action-neon .icon.cyan { color: var(--neon-cyan); }
+        .quick-action-neon .icon.pink { color: var(--neon-pink); }
+        .quick-action-neon .icon.purple { color: var(--neon-purple); }
+        .quick-action-neon .icon.orange { color: var(--neon-orange); }
+        
+        .quick-action-neon .label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quick-action-neon .sub-label {
+            font-size: 8px;
+            color: var(--text-muted);
+            margin-top: 1px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quick-action-neon.primary {
+            background: var(--gradient-cyber);
+            border-color: transparent;
+        }
+        
+        .quick-action-neon.primary .label {
+            color: white;
+        }
+        
+        .quick-action-neon.primary .sub-label {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .quick-action-neon.primary .icon {
+            color: white;
+        }
+        
+        .quick-action-neon.primary:hover {
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+        }
+        
+        /* App List - Neon */
+        .section-header-neon {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .section-header-neon h3 {
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .section-header-neon h3 .accent {
+            color: var(--neon-cyan);
+        }
+        
+        .section-header-neon .see-all {
+            font-size: 10px;
+            color: var(--neon-cyan);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: var(--font-display);
+            letter-spacing: 0.5px;
+        }
+        
+        .section-header-neon .see-all:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink-glow);
+        }
+        
+        .app-list-neon {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        
+        .app-item-neon {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .app-item-neon:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+            transform: translateX(4px);
+        }
+        
+        .app-item-neon .app-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            color: white;
+        }
+        
+        .app-item-neon .app-icon.instagram { background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737); }
+        .app-item-neon .app-icon.youtube { background: #FF0000; }
+        .app-item-neon .app-icon.tiktok { background: #000; color: #25F4EE; }
+        .app-item-neon .app-icon.twitter { background: #1DA1F2; }
+        
+        .app-item-neon .app-info {
+            flex: 1;
+        }
+        
+        .app-item-neon .app-info .name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+        }
+        
+        .app-item-neon .app-info .sub {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-top: 1px;
+        }
+        
+        .app-item-neon .app-info .sub i {
+            margin-right: 3px;
+            font-size: 9px;
+        }
+        
+        .app-item-neon .app-right {
+            text-align: right;
+        }
+        
+        .app-item-neon .app-time {
+            font-size: 13px;
+            font-weight: 700;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+        }
+        
+        .app-item-neon .app-time .danger {
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink-glow);
+        }
+        
+        .app-item-neon .app-time .warning {
+            color: var(--neon-orange);
+            text-shadow: 0 0 20px var(--neon-orange-glow);
+        }
+        
+        .app-item-neon .app-percentage {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-top: 1px;
+            font-family: var(--font-display);
+        }
+        
+        .app-item-neon .app-percentage .cyan {
+            color: var(--neon-cyan);
+        }
+        
+        /* ============================================
+                   FOCUS TAB
+                   ============================================ */
+        .focus-hero-neon {
+            text-align: center;
+            padding: 4px 0 12px;
+        }
+        
+        .focus-hero-neon .title {
+            font-size: 18px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .focus-hero-neon .title .pink {
+            color: var(--neon-pink);
+        }
+        
+        .focus-hero-neon .subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .focus-timer-neon {
+            position: relative;
+            width: 210px;
+            height: 210px;
+            margin: 8px auto 16px;
+        }
+        
+        .focus-timer-neon svg {
+            transform: rotate(-90deg);
+        }
+        
+        .focus-timer-neon .ring-bg {
+            fill: none;
+            stroke: var(--bg-elevated);
+            stroke-width: 6;
+        }
+        
+        .focus-timer-neon .ring-progress {
+            fill: none;
+            stroke: url(#focusNeonGradient);
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-dasharray: 604;
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s ease;
+            filter: drop-shadow(0 0 20px rgba(255, 45, 149, 0.3));
+        }
+        
+        .focus-timer-neon .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .focus-timer-neon .center .time {
+            font-size: 40px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 30px var(--neon-cyan-glow);
+        }
+        
+        .focus-timer-neon .center .label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-top: 2px;
+            font-family: var(--font-display);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .focus-presets-neon {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .preset-btn-neon {
+            padding: 5px 14px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            letter-spacing: 0.5px;
+        }
+        
+        .preset-btn-neon:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .preset-btn-neon.active {
+            background: var(--gradient-cyber);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+        }
+        
+        .focus-controls-neon {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 0 0 16px;
+        }
+        
+        .focus-btn-neon {
+            padding: 10px 24px;
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .focus-btn-neon.primary {
+            background: var(--gradient-cyan);
+            color: #000;
+            box-shadow: 0 0 30px var(--neon-cyan-glow);
+        }
+        
+        .focus-btn-neon.primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px var(--neon-cyan-glow);
+        }
+        
+        .focus-btn-neon.secondary {
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .focus-btn-neon.secondary:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .focus-btn-neon.success {
+            background: var(--gradient-pink);
+            color: white;
+            box-shadow: 0 0 30px var(--neon-pink-glow);
+        }
+        
+        .focus-btn-neon.success:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px var(--neon-pink-glow);
+        }
+        
+        .focus-btn-neon.danger {
+            background: var(--gradient-orange);
+            color: white;
+            box-shadow: 0 0 30px var(--neon-orange-glow);
+        }
+        
+        .focus-btn-neon.danger:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px var(--neon-orange-glow);
+        }
+        
+        .focus-stats-neon {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        
+        .focus-stat-neon {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        
+        .focus-stat-neon:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .focus-stat-neon .number {
+            font-size: 16px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            letter-spacing: 1px;
+        }
+        
+        .focus-stat-neon .stat-label {
+            font-size: 8px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: var(--font-display);
+        }
+        
+        /* ============================================
+                   ANALYTICS TAB
+                   ============================================ */
+        .analytics-header-neon {
+            margin-bottom: 12px;
+        }
+        
+        .analytics-header-neon .period {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+        }
+        
+        .period-btn-neon {
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 9px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .period-btn-neon:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+        
+        .period-btn-neon.active {
+            background: var(--gradient-cyber);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+        
+        .analytics-grid-neon {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .analytics-card-neon {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 10px;
+            transition: var(--transition-smooth);
+        }
+        
+        .analytics-card-neon:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+            transform: translateY(-2px);
+        }
+        
+        .analytics-card-neon .card-value {
+            font-size: 20px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+        }
+        
+        .analytics-card-neon .card-value .cyan { color: var(--neon-cyan); }
+        .analytics-card-neon .card-value .pink { color: var(--neon-pink); }
+        .analytics-card-neon .card-value .purple { color: var(--neon-purple); }
+        .analytics-card-neon .card-value .orange { color: var(--neon-orange); }
+        
+        .analytics-card-neon .card-label {
+            font-size: 9px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: var(--font-display);
+        }
+        
+        .analytics-card-neon .card-change {
+            font-size: 9px;
+            font-weight: 700;
+            margin-top: 3px;
+            display: inline-block;
+            font-family: var(--font-display);
+        }
+        
+        .analytics-card-neon .card-change.up {
+            color: var(--neon-cyan);
+        }
+        
+        .analytics-card-neon .card-change.down {
+            color: var(--neon-pink);
+        }
+        
+        .analytics-card-neon.accent {
+            background: var(--gradient-cyber);
+            border-color: transparent;
+        }
+        
+        .analytics-card-neon.accent .card-value,
+        .analytics-card-neon.accent .card-label,
+        .analytics-card-neon.accent .card-change {
+            color: white;
+        }
+        
+        .chart-container-neon {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 14px 10px;
+            margin-bottom: 12px;
+            transition: var(--transition-smooth);
+        }
+        
+        .chart-container-neon:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .chart-container-neon .chart-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-family: var(--font-display);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .chart-bars-neon {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 80px;
+            gap: 4px;
+        }
+        
+        .chart-bar-group-neon {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            height: 100%;
+            justify-content: flex-end;
+        }
+        
+        .chart-bar-neon {
+            width: 100%;
+            max-width: 22px;
+            border-radius: 2px 2px 0 0;
+            background: var(--gradient-cyan);
+            transition: height 0.8s ease;
+            min-height: 3px;
+            position: relative;
+            box-shadow: 0 0 10px var(--neon-cyan-glow);
+        }
+        
+        .chart-bar-neon .bar-value {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 7px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            font-family: var(--font-display);
+        }
+        
+        .chart-bar-label-neon {
+            font-size: 8px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-family: var(--font-display);
+        }
+        
+        .chart-bar-neon.alt {
+            background: var(--gradient-pink);
+            box-shadow: 0 0 10px var(--neon-pink-glow);
+        }
+        
+        .chart-bar-neon.accent-bar {
+            background: var(--gradient-orange);
+            box-shadow: 0 0 10px var(--neon-orange-glow);
+        }
+        
+        .insights-list-neon {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .insight-item-neon {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+        }
+        
+        .insight-item-neon:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .insight-item-neon .insight-icon {
+            font-size: 14px;
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .insight-item-neon .insight-icon.cyan {
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--neon-cyan);
+        }
+        
+        .insight-item-neon .insight-icon.pink {
+            background: rgba(255, 45, 149, 0.15);
+            color: var(--neon-pink);
+        }
+        
+        .insight-item-neon .insight-icon.purple {
+            background: rgba(176, 38, 255, 0.15);
+            color: var(--neon-purple);
+        }
+        
+        .insight-item-neon .insight-text {
+            flex: 1;
+        }
+        
+        .insight-item-neon .insight-text .main {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+        }
+        
+        .insight-item-neon .insight-text .sub {
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+        }
+        
+        /* ============================================
+                   SETTINGS TAB
+                   ============================================ */
+        .settings-group-neon {
+            margin-bottom: 16px;
+        }
+        
+        .settings-group-neon .group-title {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+            padding-left: 4px;
+            font-family: var(--font-display);
+        }
+        
+        .settings-item-neon {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+        
+        .settings-item-neon:first-of-type {
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+        
+        .settings-item-neon:last-of-type {
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+        }
+        
+        .settings-item-neon:only-child {
+            border-radius: var(--radius-md);
+        }
+        
+        .settings-item-neon:hover {
+            border-color: var(--neon-cyan);
+            background: var(--bg-elevated);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .settings-item-neon .settings-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        
+        .settings-item-neon .settings-icon.cyan {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon-cyan);
+        }
+        
+        .settings-item-neon .settings-icon.pink {
+            background: rgba(255, 45, 149, 0.1);
+            color: var(--neon-pink);
+        }
+        
+        .settings-item-neon .settings-icon.purple {
+            background: rgba(176, 38, 255, 0.1);
+            color: var(--neon-purple);
+        }
+        
+        .settings-item-neon .settings-icon.orange {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--neon-orange);
+        }
+        
+        .settings-item-neon .settings-info {
+            flex: 1;
+        }
+        
+        .settings-item-neon .settings-info .name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+        }
+        
+        .settings-item-neon .settings-info .desc {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-top: 1px;
+        }
+        
+        .settings-item-neon .settings-right {
+            color: var(--text-muted);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .settings-item-neon .settings-right .value {
+            color: var(--text-secondary);
+            font-size: 10px;
+            font-weight: 600;
+            font-family: var(--font-display);
+        }
+        
+        .toggle-neon {
+            width: 36px;
+            height: 20px;
+            border-radius: var(--radius-full);
+            background: var(--bg-elevated);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .toggle-neon.active {
+            background: var(--gradient-cyber);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .toggle-neon .toggle-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: var(--radius-full);
+            background: white;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        
+        .toggle-neon.active .toggle-dot {
+            left: 18px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        /* ============================================
+                   PROFILE TAB
+                   ============================================ */
+        .profile-hero-neon {
+            text-align: center;
+            padding: 6px 0 12px;
+        }
+        
+        .profile-avatar-neon {
+            width: 72px;
+            height: 72px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-cyber);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: white;
+            margin: 0 auto 8px;
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+            position: relative;
+            border: 1px solid var(--neon-cyan);
+        }
+        
+        .profile-avatar-neon .edit-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 22px;
+            height: 22px;
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        
+        .profile-avatar-neon .edit-badge:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .profile-hero-neon .name {
+            font-size: 18px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            letter-spacing: 1px;
+        }
+        
+        .profile-hero-neon .handle {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            letter-spacing: 0.5px;
+        }
+        
+        .profile-hero-neon .handle .cyan {
+            color: var(--neon-cyan);
+        }
+        
+        .profile-hero-neon .bio {
+            font-size: 12px;
+            color: var(--text-secondary);
+            max-width: 260px;
+            margin: 4px auto 0;
+            font-weight: 400;
+        }
+        
+        .profile-stats-neon {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+        
+        .profile-stat-neon {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        
+        .profile-stat-neon:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .profile-stat-neon .number {
+            font-size: 18px;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            letter-spacing: 1px;
+        }
+        
+        .profile-stat-neon .stat-label {
+            font-size: 8px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: var(--font-display);
+        }
+        
+        .badge-grid-neon {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .badge-item-neon {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 8px 4px;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        
+        .badge-item-neon:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .badge-item-neon .badge-icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        
+        .badge-item-neon .badge-name {
+            font-size: 8px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            letter-spacing: 0.3px;
+        }
+        
+        .badge-item-neon.locked {
+            opacity: 0.3;
+        }
+        
+        .badge-item-neon.locked .badge-icon {
+            filter: grayscale(1);
+        }
+        
+        /* ============================================
+                   BOTTOM NAVIGATION - NEON
+                   ============================================ */
+        .bottom-nav-neon {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            padding: 4px 12px 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-shrink: 0;
+            margin-top: auto;
+            position: relative;
+        }
+        
+        .bottom-nav-neon::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-cyber);
+            opacity: 0.3;
+        }
+        
+        .nav-item-neon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            padding: 4px 6px;
+            border-radius: var(--radius-sm);
+            position: relative;
+            flex: 1;
+            max-width: 56px;
+        }
+        
+        .nav-item-neon:hover {
+            color: var(--text-secondary);
+        }
+        
+        .nav-item-neon.active {
+            color: var(--neon-cyan);
+        }
+        
+        .nav-item-neon.active::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 2px;
+            background: var(--neon-cyan);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+        }
+        
+        .nav-item-neon i {
+            font-size: 16px;
+        }
+        
+        .nav-item-neon .label {
+            font-size: 8px;
+            font-weight: 700;
+            font-family: var(--font-display);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .nav-item-neon .badge {
+            position: absolute;
+            top: -2px;
+            right: 0px;
+            min-width: 14px;
+            height: 14px;
+            background: var(--neon-pink);
+            border-radius: var(--radius-full);
+            font-size: 8px;
+            font-weight: 900;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 3px;
+            font-family: var(--font-display);
+            box-shadow: 0 0 20px var(--neon-pink-glow);
+        }
+        
+        /* ============================================
+                   RESPONSIVE
+                   ============================================ */
+        @media (max-width: 420px) {
+            .phone-frame {
+                border-radius: 20px;
+                height: 100vh;
+                max-height: 100vh;
+            }
+            
+            .loading-screen-neon {
+                border-radius: 20px;
+            }
+            
+            .app-content {
+                padding: 0 14px 14px;
+            }
+            
+            .status-bar {
+                padding: 10px 14px 6px;
+            }
+            
+            .focus-timer-neon {
+                width: 170px;
+                height: 170px;
+            }
+            
+            .focus-timer-neon .center .time {
+                font-size: 32px;
+            }
+            
+            .badge-grid-neon {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            
+            .quick-actions-neon {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (min-width: 421px) {
+            body {
+                background: #06060E;
+            }
+        }
+        
+        .tab-spacer {
+            height: 10px;
+        }
+        
+        .interactive-hint-neon {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 4px 0 2px;
+            font-weight: 600;
+            font-family: var(--font-display);
+            letter-spacing: 0.5px;
+        }
+        
+        .interactive-hint-neon i {
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+    PHONE FRAME
+    ============================================ -->
+    <div class="phone-frame" id="phoneFrame">
+        
+        <!-- Notch -->
+        <div class="notch"></div>
+        
+        <!-- ============================================
+        LOADING SCREEN - NEON GLITCH
+        ============================================ -->
+        <div class="loading-screen-neon" id="loadingScreenNeon">
+            
+            <div class="loading-content-neon">
+                <!-- Logo with Triple Rings -->
+                <div class="loading-logo-neon-container">
+                    <div class="loading-ring-neon ring-1"></div>
+                    <div class="loading-ring-neon ring-2"></div>
+                    <div class="loading-ring-neon ring-3"></div>
+                    <div class="loading-logo-neon">FOCUS</div>
+                </div>
+                
+                <!-- Glitch Text -->
+                <div class="loading-glitch-text">INITIALIZING SYSTEM</div>
+                
+                <!-- Progress -->
+                <div class="loading-progress-neon">
+                    <div class="progress-track">
+                        <div class="progress-fill" id="loadingFillNeon"></div>
+                    </div>
+                    <div class="loading-percent-neon">
+                        <span class="percent-label">BOOT SEQUENCE</span>
+                        <span class="percent-value" id="loadingPercentNeon">0%</span>
+                    </div>
+                </div>
+                
+                <!-- Status Dots -->
+                <div class="loading-status-neon">
+                    <div class="status-dot"></div>
+                    <div class="status-dot"></div>
+                    <div class="status-dot"></div>
+                    <div class="status-dot"></div>
+                    <div class="status-dot"></div>
+                </div>
+                
+                <!-- Status Text -->
+                <div class="loading-status-text" id="statusTextNeon">> CONNECTING TO NEON NETWORK...</div>
+                
+                <!-- Version -->
+                <div class="loading-version-neon">v1.0.0 • CYBER_BUILD</div>
+            </div>
+            
+            <!-- Skip Button -->
+            <button class="loading-skip-neon" id="loadingSkipNeon">[ SKIP ]</button>
+        </div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-three-quarters"></i>
+            </div>
+        </div>
+        
+        <!-- ============================================
+        APP CONTENT
+        ============================================ -->
+        <div class="app-content" id="appContent">
+            
+            <!-- ==========================================
+            TAB 1: HOME
+            ========================================== -->
+            <div class="tab-content active" id="tab-home">
+                <!-- Header -->
+                <div class="header">
+                    <div class="header-left">
+                        <div class="greeting"><i class="fas fa-terminal"></i> SYSTEM: <strong>ACTIVE</strong></div>
+                        <div class="main-title">FOCUS<span style="color:var(--neon-pink);">FLOW</span></div>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-icon" title="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-dot"></span>
+                        </div>
+                        <div class="avatar">A</div>
+                    </div>
+                </div>
+                
+                <!-- Cyber Stats -->
+                <div class="cyber-stats">
+                    <div class="cyber-stat">
+                        <div class="stat-number cyan">5</div>
+                        <div class="stat-label">Day Streak</div>
+                        <div class="stat-change up"><i class="fas fa-arrow-up"></i> +2</div>
+                    </div>
+                    <div class="cyber-stat">
+                        <div class="stat-number pink">12.5</div>
+                        <div class="stat-label">Focus Hours</div>
+                        <div class="stat-change up"><i class="fas fa-arrow-up"></i> 18%</div>
+                    </div>
+                    <div class="cyber-stat">
+                        <div class="stat-number purple">87%</div>
+                        <div class="stat-label">Completion</div>
+                        <div class="stat-change up"><i class="fas fa-arrow-up"></i> 5%</div>
+                    </div>
+                </div>
+                
+                <!-- Progress Ring - Neon -->
+                <div class="progress-ring-section">
+                    <div class="ring-container">
+                        <svg width="100" height="100" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00F0FF;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#B026FF;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FF2D95;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="ring-bg-neon" cx="50" cy="50" r="45" />
+                            <circle class="ring-progress-neon" cx="50" cy="50" r="45" />
+                        </svg>
+                        <div class="ring-center-neon">
+                            <div class="percentage">72%</div>
+                            <div class="label">Online</div>
+                        </div>
+                    </div>
+                    <div class="ring-details">
+                        <div class="goal-label">Daily Objective</div>
+                        <div class="goal-value"><span>2h 10m</span> / 3h</div>
+                        <div class="progress-bar-neon">
+                            <div class="progress-bar-fill-neon"></div>
+                        </div>
+                        <div class="time-remaining">
+                            <span><i class="fas fa-clock"></i> 50m remaining</span>
+                            <span><i class="fas fa-check-circle"></i> 72% complete</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions - Neon -->
+                <div class="quick-actions-neon">
+                    <div class="quick-action-neon primary" onclick="switchTab('focus')">
+                        <span class="icon"><i class="fas fa-play"></i></span>
+                        <div class="label">FOCUS</div>
+                        <div class="sub-label">START SESSION</div>
+                    </div>
+                    <div class="quick-action-neon">
+                        <span class="icon cyan"><i class="fas fa-pen"></i></span>
+                        <div class="label">LOG</div>
+                        <div class="sub-label">TRACK USAGE</div>
+                    </div>
+                    <div class="quick-action-neon" onclick="switchTab('analytics')">
+                        <span class="icon purple"><i class="fas fa-chart-line"></i></span>
+                        <div class="label">ANALYTICS</div>
+                        <div class="sub-label">VIEW DATA</div>
+                    </div>
+                    <div class="quick-action-neon">
+                        <span class="icon orange"><i class="fas fa-brain"></i></span>
+                        <div class="label">AI SUGGEST</div>
+                        <div class="sub-label">3 INSIGHTS</div>
+                    </div>
+                </div>
+                
+                <!-- Today's Usage -->
+                <div class="section-header-neon">
+                    <h3>USAGE <span class="accent">LOG</span></h3>
+                    <span class="see-all">VIEW ALL →</span>
+                </div>
+                
+                <div class="app-list-neon">
+                    <div class="app-item-neon">
+                        <div class="app-icon instagram"><i class="fab fa-instagram"></i></div>
+                        <div class="app-info">
+                            <div class="name">Instagram</div>
+                            <div class="sub"><i class="fas fa-clock"></i> 12 sessions</div>
+                        </div>
+                        <div class="app-right">
+                            <div class="app-time danger">1h 20m</div>
+                            <div class="app-percentage"><span class="cyan">28%</span> of total</div>
+                        </div>
+                    </div>
+                    <div class="app-item-neon">
+                        <div class="app-icon youtube"><i class="fab fa-youtube"></i></div>
+                        <div class="app-info">
+                            <div class="name">YouTube</div>
+                            <div class="sub"><i class="fas fa-clock"></i> 8 sessions</div>
+                        </div>
+                        <div class="app-right">
+                            <div class="app-time warning">45m</div>
+                            <div class="app-percentage"><span class="cyan">16%</span> of total</div>
+                        </div>
+                    </div>
+                    <div class="app-item-neon">
+                        <div class="app-icon tiktok"><i class="fab fa-tiktok"></i></div>
+                        <div class="app-info">
+                            <div class="name">TikTok</div>
+                            <div class="sub"><i class="fas fa-clock"></i> 15 sessions</div>
+                        </div>
+                        <div class="app-right">
+                            <div class="app-time">30m</div>
+                            <div class="app-percentage"><span class="cyan">11%</span> of total</div>
+                        </div>
+                    </div>
+                    <div class="app-item-neon">
+                        <div class="app-icon twitter"><i class="fab fa-twitter"></i></div>
+                        <div class="app-info">
+                            <div class="name">Twitter</div>
+                            <div class="sub"><i class="fas fa-clock"></i> 6 sessions</div>
+                        </div>
+                        <div class="app-right">
+                            <div class="app-time">15m</div>
+                            <div class="app-percentage"><span class="cyan">5%</span> of total</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-hint-neon">
+                    <i class="fas fa-sync-alt fa-spin"></i> SYSTEM ONLINE
+                </div>
+                <div class="tab-spacer"></div>
+            </div>
+            
+            <!-- ==========================================
+            TAB 2: FOCUS
+            ========================================== -->
+            <div class="tab-content" id="tab-focus">
+                <div class="header" style="margin-bottom:4px;">
+                    <div class="header-left">
+                        <div class="greeting"><i class="fas fa-terminal"></i> FOCUS <strong>MODE</strong></div>
+                        <div class="main-title" style="font-size:20px;">DEEP <span style="color:var(--neon-pink);">WORK</span></div>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-icon" title="History">
+                            <i class="fas fa-history"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="focus-hero-neon">
+                    <div class="title">ENTER THE <span class="pink">ZONE</span></div>
+                    <div class="subtitle">Distraction-free. Maximum focus.</div>
+                </div>
+                
+                <!-- Timer -->
+                <div class="focus-timer-neon">
+                    <svg width="210" height="210" viewBox="0 0 210 210">
+                        <defs>
+                            <linearGradient id="focusNeonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FF2D95;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#B026FF;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#00F0FF;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="ring-bg" cx="105" cy="105" r="96" />
+                        <circle class="ring-progress" cx="105" cy="105" r="96" 
+                                stroke-dasharray="604" stroke-dashoffset="0" />
+                    </svg>
+                    <div class="center">
+                        <div class="time" id="timerDisplay3">25:00</div>
+                        <div class="label" id="timerLabel3">READY</div>
+                    </div>
+                </div>
+                
+                <!-- Presets -->
+                <div class="focus-presets-neon">
+                    <button class="preset-btn-neon active" data-minutes="5" onclick="setPreset3(5, this)">5M</button>
+                    <button class="preset-btn-neon" data-minutes="15" onclick="setPreset3(15, this)">15M</button>
+                    <button class="preset-btn-neon" data-minutes="25" onclick="setPreset3(25, this)">25M</button>
+                    <button class="preset-btn-neon" data-minutes="45" onclick="setPreset3(45, this)">45M</button>
+                    <button class="preset-btn-neon" data-minutes="60" onclick="setPreset3(60, this)">60M</button>
+                </div>
+                
+                <!-- Controls -->
+                <div class="focus-controls-neon">
+                    <button class="focus-btn-neon primary" id="focusStartBtn3" onclick="startTimer3()">
+                        <i class="fas fa-play"></i> START
+                    </button>
+                    <button class="focus-btn-neon secondary" id="focusPauseBtn3" onclick="pauseTimer3()" style="display:none;">
+                        <i class="fas fa-pause"></i> PAUSE
+                    </button>
+                    <button class="focus-btn-neon success" id="focusResumeBtn3" onclick="resumeTimer3()" style="display:none;">
+                        <i class="fas fa-play"></i> RESUME
+                    </button>
+                    <button class="focus-btn-neon danger" id="focusEndBtn3" onclick="endTimer3()" style="display:none;">
+                        <i class="fas fa-stop"></i> END
+                    </button>
+                </div>
+                
+                <!-- Stats -->
+                <div class="focus-stats-neon">
+                    <div class="focus-stat-neon">
+                        <div class="number">12</div>
+                        <div class="stat-label">Today's Sessions</div>
+                    </div>
+                    <div class="focus-stat-neon">
+                        <div class="number">4.2h</div>
+                        <div class="stat-label">Total Focus</div>
+                    </div>
+                    <div class="focus-stat-neon">
+                        <div class="number">89%</div>
+                        <div class="stat-label">Completion Rate</div>
+                    </div>
+                </div>
+                
+                <div class="tab-spacer"></div>
+            </div>
+            
+            <!-- ==========================================
+            TAB 3: ANALYTICS
+            ========================================== -->
+            <div class="tab-content" id="tab-analytics">
+                <div class="header" style="margin-bottom:4px;">
+                    <div class="header-left">
+                        <div class="greeting"><i class="fas fa-terminal"></i> DATA <strong>STREAM</strong></div>
+                        <div class="main-title" style="font-size:20px;">ANALYTICS</div>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-icon" title="Export">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="analytics-header-neon">
+                    <div class="period">
+                        <button class="period-btn-neon active" onclick="setPeriod3('week', this)">Week</button>
+                        <button class="period-btn-neon" onclick="setPeriod3('month', this)">Month</button>
+                        <button class="period-btn-neon" onclick="setPeriod3('year', this)">Year</button>
+                    </div>
+                </div>
+                
+                <!-- Stats Grid -->
+                <div class="analytics-grid-neon">
+                    <div class="analytics-card-neon accent">
+                        <div class="card-value">12.5h</div>
+                        <div class="card-label">Total Focus Time</div>
+                        <div class="card-change up"><i class="fas fa-arrow-up"></i> 18%</div>
+                    </div>
+                    <div class="analytics-card-neon">
+                        <div class="card-value"><span class="cyan">5</span></div>
+                        <div class="card-label">Day Streak</div>
+                        <div class="card-change up"><i class="fas fa-arrow-up"></i> Best: 12</div>
+                    </div>
+                    <div class="analytics-card-neon">
+                        <div class="card-value"><span class="pink">87%</span></div>
+                        <div class="card-label">Goal Completion</div>
+                        <div class="card-change up"><i class="fas fa-arrow-up"></i> +5%</div>
+                    </div>
+                    <div class="analytics-card-neon">
+                        <div class="card-value"><span class="orange">3.2h</span></div>
+                        <div class="card-label">Daily Average</div>
+                        <div class="card-change down"><i class="fas fa-arrow-down"></i> 0.5h</div>
+                    </div>
+                </div>
+                
+                <!-- Chart -->
+                <div class="chart-container-neon">
+                    <div class="chart-title">WEEKLY FOCUS ACTIVITY</div>
+                    <div class="chart-bars-neon">
+                        <div class="chart-bar-group-neon">
+                            <div class="chart-bar-neon" style="height:45%;">
+                                <span class="bar-value">2.5h</span>
+                            </div>
+                            <span class="chart-bar-label-neon">Mon</span>
+                        </div>
+                        <div class="chart-bar-group-neon">
+                            <div class="chart-bar-neon" style="height:60%;">
+                                <span class="bar-value">3.2h</span>
+                            </div>
+                            <span class="chart-bar-label-neon">Tue</span>
+                        </div>
+                        <div class="chart-bar-group-neon">
+                            <div class="chart-bar-neon" style="height:80%;">
+                                <span class="bar-value">4.5h</span>
+                            </div>
+                            <span class="chart-bar-label-neon">Wed</span>
+                        </div>
+                        <div class="chart-bar-group-neon">
+                            <div class="chart-bar-neon" style="height:95%;">
+                                <span class="bar-value">5.1h</span>
+                            </div>
+                            <span class="chart-bar-label-neon">Thu</span>
+                        </div>
+                        <div class="chart-bar-group-neon">
+                            <div class="chart-bar-neon alt" style="height:70%;">
+                                <span class="bar-value">3.8h</span>
+                            </div>
+                            <span class="chart-bar-label-neon">Fri</span>
+                        </div>
+                        <div class="chart-bar-group-neon">
+                            <div class="chart-bar-neon alt" style="height:40%;">
+                                <span class="bar-value">2.0h</span>
+                            </div>
+                            <span class="chart-bar-label-neon">Sat</span>
+                        </div>
+                        <div class="chart-bar-group-neon">
+                            <div class="chart-bar-neon accent-bar" style="height:25%;">
+                                <span class="bar-value">1.2h</span>
+                            </div>
+                            <span class="chart-bar-label-neon">Sun</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Insights -->
+                <div class="section-header-neon">
+                    <h3>SYSTEM <span class="accent">INSIGHTS</span></h3>
+                </div>
+                
+                <div class="insights-list-neon">
+                    <div class="insight-item-neon">
+                        <div class="insight-icon cyan"><i class="fas fa-bolt"></i></div>
+                        <div class="insight-text">
+                            <div class="main">Peak performance: 10 AM - 12 PM</div>
+                            <div class="sub">Morning hours show highest productivity</div>
+                        </div>
+                    </div>
+                    <div class="insight-item-neon">
+                        <div class="insight-icon pink"><i class="fas fa-trophy"></i></div>
+                        <div class="insight-text">
+                            <div class="main">Best day: Wednesday (5.1 hours)</div>
+                            <div class="sub">Midweek momentum is strongest</div>
+                        </div>
+                    </div>
+                    <div class="insight-item-neon">
+                        <div class="insight-icon purple"><i class="fas fa-fire"></i></div>
+                        <div class="insight-text">
+                            <div class="main">5-day streak active</div>
+                            <div class="sub">7 days unlocks new achievement</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-spacer"></div>
+            </div>
+            
+            <!-- ==========================================
+            TAB 4: SETTINGS
+            ========================================== -->
+            <div class="tab-content" id="tab-settings">
+                <div class="header" style="margin-bottom:4px;">
+                    <div class="header-left">
+                        <div class="greeting"><i class="fas fa-terminal"></i> CONFIG</div>
+                        <div class="main-title" style="font-size:20px;">SETTINGS</div>
+                    </div>
+                </div>
+                
+                <!-- Appearance -->
+                <div class="settings-group-neon">
+                    <div class="group-title">Interface</div>
+                    
+                    <div class="settings-item-neon" onclick="toggleTheme3()">
+                        <div class="settings-icon cyan"><i class="fas fa-moon"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Dark Mode</div>
+                            <div class="desc">Toggle theme preference</div>
+                        </div>
+                        <div class="settings-right">
+                            <div class="toggle-neon active" id="themeToggle3">
+                                <div class="toggle-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-item-neon">
+                        <div class="settings-icon purple"><i class="fas fa-palette"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Theme Color</div>
+                            <div class="desc">Neon Pulse (current)</div>
+                        </div>
+                        <div class="settings-right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Goals -->
+                <div class="settings-group-neon">
+                    <div class="group-title">Objectives</div>
+                    
+                    <div class="settings-item-neon">
+                        <div class="settings-icon cyan"><i class="fas fa-bullseye"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Daily Focus Goal</div>
+                            <div class="desc">Set your daily target</div>
+                        </div>
+                        <div class="settings-right">
+                            <span class="value">3h 00m</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-item-neon">
+                        <div class="settings-icon pink"><i class="fas fa-clock"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Session Duration</div>
+                            <div class="desc">Default timer setting</div>
+                        </div>
+                        <div class="settings-right">
+                            <span class="value">25 min</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notifications -->
+                <div class="settings-group-neon">
+                    <div class="group-title">Alerts</div>
+                    
+                    <div class="settings-item-neon">
+                        <div class="settings-icon orange"><i class="fas fa-bell"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Push Notifications</div>
+                            <div class="desc">Reminders and updates</div>
+                        </div>
+                        <div class="settings-right">
+                            <div class="toggle-neon active" id="notifToggle3">
+                                <div class="toggle-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-item-neon">
+                        <div class="settings-icon orange"><i class="fas fa-clock"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Check-in Reminders</div>
+                            <div class="desc">Daily progress prompts</div>
+                        </div>
+                        <div class="settings-right">
+                            <span class="value">9:00 AM</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Apps -->
+                <div class="settings-group-neon">
+                    <div class="group-title">Monitored Apps</div>
+                    
+                    <div class="settings-item-neon">
+                        <div class="settings-icon purple"><i class="fas fa-apps"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Manage Tracked Apps</div>
+                            <div class="desc">6 apps currently monitored</div>
+                        </div>
+                        <div class="settings-right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Account -->
+                <div class="settings-group-neon">
+                    <div class="group-title">Account</div>
+                    
+                    <div class="settings-item-neon">
+                        <div class="settings-icon cyan"><i class="fas fa-user"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Profile Settings</div>
+                            <div class="desc">Edit your information</div>
+                        </div>
+                        <div class="settings-right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-item-neon" style="border-color: rgba(255, 45, 149, 0.2);">
+                        <div class="settings-icon" style="background:rgba(255, 45, 149, 0.1); color:var(--neon-pink);">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div class="settings-info">
+                            <div class="name" style="color:var(--neon-pink);">Sign Out</div>
+                            <div class="desc">Log out of your account</div>
+                        </div>
+                        <div class="settings-right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-hint-neon" style="padding:8px 0;">
+                    <i class="fas fa-code"></i> v1.0.0 • CYBER_BUILD
+                </div>
+                <div class="tab-spacer"></div>
+            </div>
+            
+            <!-- ==========================================
+            TAB 5: PROFILE
+            ========================================== -->
+            <div class="tab-content" id="tab-profile">
+                <div class="header" style="margin-bottom:4px;">
+                    <div class="header-left">
+                        <div class="greeting"><i class="fas fa-terminal"></i> USER <strong>PROFILE</strong></div>
+                        <div class="main-title" style="font-size:20px;">JOURNEY</div>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-icon" title="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Hero -->
+                <div class="profile-hero-neon">
+                    <div class="profile-avatar-neon">
+                        A
+                        <div class="edit-badge">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    <div class="name">ALEX MORGAN</div>
+                    <div class="handle"><span class="cyan">@alexfocus</span> • Member since 2026</div>
+                    <div class="bio">Building better habits through focused work</div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="profile-stats-neon">
+                    <div class="profile-stat-neon">
+                        <div class="number" style="color:var(--neon-cyan);">47</div>
+                        <div class="stat-label">Total Sessions</div>
+                    </div>
+                    <div class="profile-stat-neon">
+                        <div class="number" style="color:var(--neon-pink);">5</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                    <div class="profile-stat-neon">
+                        <div class="number" style="color:var(--neon-purple);">89%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                </div>
+                
+                <!-- Badges -->
+                <div class="section-header-neon">
+                    <h3>ACHIEVEMENT <span class="accent">UNLOCKED</span></h3>
+                    <span class="see-all">VIEW ALL →</span>
+                </div>
+                
+                <div class="badge-grid-neon">
+                    <div class="badge-item-neon">
+                        <span class="badge-icon">🚀</span>
+                        <span class="badge-name">First Focus</span>
+                    </div>
+                    <div class="badge-item-neon">
+                        <span class="badge-icon">🔥</span>
+                        <span class="badge-name">3-Day Streak</span>
+                    </div>
+                    <div class="badge-item-neon">
+                        <span class="badge-icon">⭐</span>
+                        <span class="badge-name">10 Hours</span>
+                    </div>
+                    <div class="badge-item-neon locked">
+                        <span class="badge-icon">👑</span>
+                        <span class="badge-name">7-Day Streak</span>
+                    </div>
+                    <div class="badge-item-neon locked">
+                        <span class="badge-icon">💪</span>
+                        <span class="badge-name">50 Sessions</span>
+                    </div>
+                    <div class="badge-item-neon locked">
+                        <span class="badge-icon">🏆</span>
+                        <span class="badge-name">100 Hours</span>
+                    </div>
+                    <div class="badge-item-neon locked">
+                        <span class="badge-icon">🎯</span>
+                        <span class="badge-name">Perfect Week</span>
+                    </div>
+                    <div class="badge-item-neon locked">
+                        <span class="badge-icon">🧘</span>
+                        <span class="badge-name">Zen Master</span>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="section-header-neon">
+                    <h3>ACTIVITY <span class="accent">LOG</span></h3>
+                </div>
+                
+                <div class="app-list-neon">
+                    <div class="app-item-neon">
+                        <div style="width:32px;height:32px;border-radius:var(--radius-sm);background:rgba(0,240,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--neon-cyan);">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="app-info">
+                            <div class="name">Focus Session</div>
+                            <div class="sub">25 min completed • 2h ago</div>
+                        </div>
+                        <div style="font-size:12px;color:var(--neon-cyan);"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="app-item-neon">
+                        <div style="width:32px;height:32px;border-radius:var(--radius-sm);background:rgba(0,240,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--neon-cyan);">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                        <div class="app-info">
+                            <div class="name">Logged Usage</div>
+                            <div class="sub">Instagram • 25 min • 3h ago</div>
+                        </div>
+                        <div style="font-size:12px;color:var(--text-muted);"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="app-item-neon">
+                        <div style="width:32px;height:32px;border-radius:var(--radius-sm);background:rgba(176,38,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--neon-purple);">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="app-info">
+                            <div class="name">Achievement Unlocked</div>
+                            <div class="sub">10 Hours total focus • 1d ago</div>
+                        </div>
+                        <div style="font-size:12px;color:var(--neon-orange);"><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                
+                <div class="tab-spacer"></div>
+            </div>
+            
+        </div>
+        
+        <!-- ============================================
+        BOTTOM NAVIGATION
+        ============================================ -->
+        <div class="bottom-nav-neon">
+            <div class="nav-item-neon active" data-tab="home" onclick="switchTab('home')">
+                <i class="fas fa-home"></i>
+                <span class="label">Home</span>
+            </div>
+            <div class="nav-item-neon" data-tab="focus" onclick="switchTab('focus')">
+                <i class="fas fa-clock"></i>
+                <span class="label">Focus</span>
+            </div>
+            <div class="nav-item-neon" data-tab="analytics" onclick="switchTab('analytics')">
+                <i class="fas fa-chart-bar"></i>
+                <span class="label">Data</span>
+            </div>
+            <div class="nav-item-neon" data-tab="settings" onclick="switchTab('settings')">
+                <i class="fas fa-sliders-h"></i>
+                <span class="label">Config</span>
+            </div>
+            <div class="nav-item-neon" data-tab="profile" onclick="switchTab('profile')" style="position:relative;">
+                <i class="fas fa-user"></i>
+                <span class="label">Profile</span>
+                <span class="badge">3</span>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- ============================================
+    JAVASCRIPT
+    ============================================ -->
+    <script>
+        // ============================================
+        // LOADING SCREEN - NEON GLITCH (5 SECONDS)
+        // ============================================
+        (function() {
+            const loadingScreen = document.getElementById('loadingScreenNeon');
+            const progressFill = document.getElementById('loadingFillNeon');
+            const percentDisplay = document.getElementById('loadingPercentNeon');
+            const statusText = document.getElementById('statusTextNeon');
+            const skipBtn = document.getElementById('loadingSkipNeon');
+            const appContent = document.getElementById('appContent');
+            
+            const statusMessages = [
+                '> CONNECTING TO NEON NETWORK...',
+                '> SYNCHRONIZING NODE CLUSTERS...',
+                '> LOADING CYBER PROTOCOLS...',
+                '> INITIALIZING FOCUS MATRIX...',
+                '> SYSTEM BOOT COMPLETE.'
+            ];
+            
+            let progress = 0;
+            const duration = 5000;
+            const interval = 50;
+            const steps = duration / interval;
+            let currentStep = 0;
+            let isSkipped = false;
+            let msgIndex = 0;
+            
+            function updateLoading(percentage) {
+                const rounded = Math.round(percentage);
+                percentDisplay.textContent = rounded + '%';
+                progressFill.style.width = percentage + '%';
+                
+                // Update status message at milestones
+                const newIndex = Math.floor((percentage / 100) * (statusMessages.length - 1));
+                if (newIndex > msgIndex && newIndex < statusMessages.length) {
+                    msgIndex = newIndex;
+                    statusText.textContent = statusMessages[msgIndex];
+                    // Glitch effect on status change
+                    statusText.style.opacity = '0.3';
+                    setTimeout(() => {
+                        statusText.style.opacity = '0.6';
+                    }, 100);
+                }
+            }
+            
+            const progressInterval = setInterval(() => {
+                if (isSkipped) return;
+                
+                currentStep++;
+                progress = (currentStep / steps) * 100;
+                
+                // Add slight natural variation
+                if (Math.random() > 0.9) {
+                    progress += 0.5;
+                }
+                
+                const cappedProgress = Math.min(progress, 100);
+                updateLoading(cappedProgress);
+                
+                if (cappedProgress >= 100) {
+                    clearInterval(progressInterval);
+                    finishLoading();
+                }
+            }, interval);
+            
+            function finishLoading() {
+                if (isSkipped) return;
+                isSkipped = true;
+                
+                updateLoading(100);
+                statusText.textContent = '> SYSTEM READY.';
+                
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                    appContent.classList.add('visible');
+                    
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 800);
+                    
+                    console.log('🚀 FocusFlow Neon Pulse loaded!');
+                    console.log('⏱️ Loading duration: 5 seconds');
+                    console.log('🎨 Cyberpunk theme with glitch effects');
+                }, 300);
+            }
+            
+            // Skip functionality - available after 2 seconds
+            let canSkip = false;
+            setTimeout(() => {
+                canSkip = true;
+                skipBtn.style.opacity = '1';
+                skipBtn.style.pointerEvents = 'auto';
+            }, 2000);
+            
+            skipBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (canSkip && !isSkipped) {
+                    isSkipped = true;
+                    clearInterval(progressInterval);
+                    
+                    updateLoading(100);
+                    statusText.textContent = '> SKIP INITIATED.';
+                    
+                    setTimeout(() => {
+                        loadingScreen.classList.add('hidden');
+                        appContent.classList.add('visible');
+                        
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 800);
+                        
+                        console.log('⏭️ Loading skipped by user');
+                    }, 300);
+                }
+            });
+            
+            // Click on loading screen to skip
+            loadingScreen.addEventListener('click', function(e) {
+                if (e.target === skipBtn) return;
+                if (canSkip && !isSkipped) {
+                    skipBtn.click();
+                }
+            });
+            
+        })();
+        
+        // ============================================
+        // TAB SWITCHING
+        // ============================================
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            document.querySelectorAll('.nav-item-neon').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.nav-item-neon[data-tab="${tabId}"]`).classList.add('active');
+            
+            document.getElementById('appContent').scrollTop = 0;
+        }
+        
+        // ============================================
+        // FOCUS TIMER 3
+        // ============================================
+        let timerInterval3 = null;
+        let totalSeconds3 = 1500;
+        let remainingSeconds3 = 1500;
+        let isRunning3 = false;
+        let isPaused3 = false;
+        let currentPreset3 = 25;
+        
+        function updateTimerDisplay3() {
+            const mins = Math.floor(remainingSeconds3 / 60);
+            const secs = remainingSeconds3 % 60;
+            document.getElementById('timerDisplay3').textContent = 
+                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            
+            const progress = 1 - (remainingSeconds3 / totalSeconds3);
+            const circumference = 604;
+            const offset = circumference * progress;
+            document.querySelector('.focus-timer-neon .ring-progress').style.strokeDashoffset = offset;
+            
+            const label = document.getElementById('timerLabel3');
+            if (remainingSeconds3 === 0) {
+                label.textContent = 'COMPLETE';
+            } else if (isRunning3) {
+                label.textContent = 'FOCUSING';
+            } else if (isPaused3) {
+                label.textContent = 'PAUSED';
+            } else {
+                label.textContent = 'READY';
+            }
+        }
+        
+        function setPreset3(minutes, btn) {
+            if (isRunning3) return;
+            document.querySelectorAll('.preset-btn-neon').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentPreset3 = minutes;
+            totalSeconds3 = minutes * 60;
+            remainingSeconds3 = totalSeconds3;
+            isPaused3 = false;
+            updateTimerDisplay3();
+            
+            document.getElementById('focusStartBtn3').style.display = 'flex';
+            document.getElementById('focusPauseBtn3').style.display = 'none';
+            document.getElementById('focusResumeBtn3').style.display = 'none';
+            document.getElementById('focusEndBtn3').style.display = 'none';
+        }
+        
+        function startTimer3() {
+            if (isRunning3) return;
+            if (remainingSeconds3 <= 0) remainingSeconds3 = totalSeconds3;
+            
+            isRunning3 = true;
+            isPaused3 = false;
+            
+            document.getElementById('focusStartBtn3').style.display = 'none';
+            document.getElementById('focusPauseBtn3').style.display = 'flex';
+            document.getElementById('focusResumeBtn3').style.display = 'none';
+            document.getElementById('focusEndBtn3').style.display = 'flex';
+            
+            timerInterval3 = setInterval(() => {
+                remainingSeconds3--;
+                updateTimerDisplay3();
+                if (remainingSeconds3 <= 0) {
+                    clearInterval(timerInterval3);
+                    isRunning3 = false;
+                    document.getElementById('focusStartBtn3').style.display = 'flex';
+                    document.getElementById('focusPauseBtn3').style.display = 'none';
+                    document.getElementById('focusResumeBtn3').style.display = 'none';
+                    document.getElementById('focusEndBtn3').style.display = 'none';
+                    document.getElementById('timerLabel3').textContent = 'COMPLETE';
+                    document.querySelector('.focus-timer-neon').style.transform = 'scale(1.04)';
+                    setTimeout(() => {
+                        document.querySelector('.focus-timer-neon').style.transform = 'scale(1)';
+                    }, 300);
+                }
+            }, 1000);
+        }
+        
+        function pauseTimer3() {
+            if (!isRunning3) return;
+            isRunning3 = false;
+            isPaused3 = true;
+            clearInterval(timerInterval3);
+            document.getElementById('focusStartBtn3').style.display = 'none';
+            document.getElementById('focusPauseBtn3').style.display = 'none';
+            document.getElementById('focusResumeBtn3').style.display = 'flex';
+            document.getElementById('focusEndBtn3').style.display = 'flex';
+            document.getElementById('timerLabel3').textContent = 'PAUSED';
+        }
+        
+        function resumeTimer3() {
+            if (!isPaused3) return;
+            isRunning3 = true;
+            isPaused3 = false;
+            document.getElementById('focusStartBtn3').style.display = 'none';
+            document.getElementById('focusPauseBtn3').style.display = 'flex';
+            document.getElementById('focusResumeBtn3').style.display = 'none';
+            document.getElementById('focusEndBtn3').style.display = 'flex';
+            
+            timerInterval3 = setInterval(() => {
+                remainingSeconds3--;
+                updateTimerDisplay3();
+                if (remainingSeconds3 <= 0) {
+                    clearInterval(timerInterval3);
+                    isRunning3 = false;
+                    document.getElementById('focusStartBtn3').style.display = 'flex';
+                    document.getElementById('focusPauseBtn3').style.display = 'none';
+                    document.getElementById('focusResumeBtn3').style.display = 'none';
+                    document.getElementById('focusEndBtn3').style.display = 'none';
+                    document.getElementById('timerLabel3').textContent = 'COMPLETE';
+                }
+            }, 1000);
+        }
+        
+        function endTimer3() {
+            clearInterval(timerInterval3);
+            isRunning3 = false;
+            isPaused3 = false;
+            document.getElementById('focusStartBtn3').style.display = 'flex';
+            document.getElementById('focusPauseBtn3').style.display = 'none';
+            document.getElementById('focusResumeBtn3').style.display = 'none';
+            document.getElementById('focusEndBtn3').style.display = 'none';
+            totalSeconds3 = currentPreset3 * 60;
+            remainingSeconds3 = totalSeconds3;
+            updateTimerDisplay3();
+            document.getElementById('timerLabel3').textContent = 'READY';
+        }
+        
+        // ============================================
+        // ANALYTICS PERIOD
+        // ============================================
+        function setPeriod3(period, btn) {
+            document.querySelectorAll('.period-btn-neon').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        
+        // ============================================
+        // THEME TOGGLE 3
+        // ============================================
+        let isDarkMode3 = true;
+        
+        function toggleTheme3() {
+            isDarkMode3 = !isDarkMode3;
+            const toggle = document.getElementById('themeToggle3');
+            toggle.classList.toggle('active');
+            
+            if (isDarkMode3) {
+                document.documentElement.style.setProperty('--bg-primary', '#0A0A12');
+                document.documentElement.style.setProperty('--bg-surface', '#12121F');
+                document.documentElement.style.setProperty('--bg-elevated', '#1A1A2E');
+                document.documentElement.style.setProperty('--text-primary', '#FFFFFF');
+                document.documentElement.style.setProperty('--text-secondary', '#A8A8C8');
+                document.documentElement.style.setProperty('--text-muted', '#5A5A7A');
+                document.documentElement.style.setProperty('--border-color', 'rgba(0, 240, 255, 0.15)');
+                document.body.style.background = '#06060E';
+            } else {
+                document.documentElement.style.setProperty('--bg-primary', '#F0F0FF');
+                document.documentElement.style.setProperty('--bg-surface', '#FFFFFF');
+                document.documentElement.style.setProperty('--bg-elevated', '#E8E8F8');
+                document.documentElement.style.setProperty('--text-primary', '#0A0A12');
+                document.documentElement.style.setProperty('--text-secondary', '#5A5A7A');
+                document.documentElement.style.setProperty('--text-muted', '#A8A8C8');
+                document.documentElement.style.setProperty('--border-color', 'rgba(0, 240, 255, 0.3)');
+                document.body.style.background = '#E8E8F8';
+            }
+        }
+        
+        // ============================================
+        // NOTIFICATION TOGGLE
+        // ============================================
+        document.getElementById('notifToggle3')?.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+        
+        // ============================================
+        // CLICK FEEDBACK
+        // ============================================
+        document.querySelectorAll('.app-item-neon, .quick-action-neon, .settings-item-neon, .analytics-card-neon, .focus-stat-neon, .profile-stat-neon, .badge-item-neon, .insight-item-neon').forEach(el => {
+            el.addEventListener('click', function() {
+                const originalBorder = this.style.borderColor;
+                this.style.borderColor = 'var(--neon-cyan)';
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    setTimeout(() => {
+                        this.style.borderColor = originalBorder || '';
+                    }, 300);
+                }, 150);
+            });
+        });
+        
+        // ============================================
+        // SEE ALL LINKS
+        // ============================================
+        document.querySelectorAll('.see-all').forEach(el => {
+            el.addEventListener('click', function() {
+                const original = this.textContent;
+                this.textContent = 'LOADING...';
+                setTimeout(() => {
+                    this.textContent = original;
+                }, 800);
+            });
+        });
+        
+        // ============================================
+        // INIT
+        // ============================================
+        console.log('🚀 FocusFlow Neon Pulse with Cyber Loading Screen!');
+        console.log('🎨 Cyberpunk theme with glitch effects');
+        console.log('💡 All 5 tabs working with neon styling');
+        console.log('⏱️ Loading duration: 5 seconds (click to skip after 2s)');
+        console.log('🔥 Unique futuristic aesthetic');
+    </script>
+</body>
+</html>

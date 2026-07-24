@@ -1,0 +1,2636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>FocusFlow - Professional Theme</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <style>
+        /* ============================================
+                   SPLASH SCREEN STYLES
+                   ============================================ */
+        .splash-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #0F172A;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 38px;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .splash-screen.hidden {
+            opacity: 0;
+            transform: scale(1.05);
+            pointer-events: none;
+        }
+        
+        .splash-logo {
+            font-size: 48px;
+            font-weight: 900;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2563EB, #0D9488);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            animation: splashLogoPulse 2s ease-in-out infinite;
+        }
+        
+        .splash-logo-sub {
+            font-size: 14px;
+            color: #94A3B8;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        
+        @keyframes splashLogoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .splash-ring {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid rgba(37, 99, 235, 0.1);
+            border-top-color: #2563EB;
+            border-right-color: #0D9488;
+            animation: splashRingSpin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            margin: 30px 0 20px;
+            position: relative;
+        }
+        
+        .splash-ring::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border-radius: 50%;
+            border: 3px solid rgba(13, 148, 136, 0.1);
+            border-bottom-color: #0D9488;
+            animation: splashRingSpin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+        }
+        
+        @keyframes splashRingSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .splash-progress-container {
+            width: 200px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 9999px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .splash-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2563EB, #0D9488);
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+        }
+        
+        .splash-version {
+            font-size: 11px;
+            color: #475569;
+            font-weight: 500;
+            margin-top: 16px;
+            letter-spacing: 1px;
+        }
+        
+        .splash-tagline {
+            font-size: 13px;
+            color: #64748B;
+            font-weight: 400;
+            margin-top: 8px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+            letter-spacing: 0.5px;
+        }
+        
+        .splash-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .splash-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #475569;
+            animation: splashDotPulse 1.4s ease-in-out infinite;
+        }
+        
+        .splash-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .splash-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes splashDotPulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* ============================================
+                   CSS VARIABLES - Corporate Clarity Theme
+                   ============================================ */
+        :root {
+            /* Primary - Clean Navy & White */
+            --bg-primary: #F8FAFC;
+            --bg-surface: #FFFFFF;
+            --bg-elevated: #F1F5F9;
+            --bg-card: #FFFFFF;
+            
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            
+            --navy: #1E293B;
+            --navy-light: #334155;
+            --blue-accent: #2563EB;
+            --blue-light: #3B82F6;
+            --blue-dark: #1D4ED8;
+            --blue-bg: #EFF6FF;
+            
+            --teal: #0D9488;
+            --teal-light: #14B8A6;
+            --teal-bg: #F0FDFA;
+            
+            --slate: #64748B;
+            --slate-light: #94A3B8;
+            
+            --border-color: #E2E8F0;
+            --shadow-color: rgba(15, 23, 42, 0.06);
+            
+            --success: #059669;
+            --warning: #D97706;
+            --error: #DC2626;
+            
+            --gradient-primary: linear-gradient(135deg, #2563EB, #1D4ED8);
+            --gradient-secondary: linear-gradient(135deg, #0D9488, #0F766E);
+            --gradient-accent: linear-gradient(135deg, #6366F1, #4F46E5);
+            
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+            
+            --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Font */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* ============================================
+                   RESET & BASE
+                   ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background: #E8EDF5;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        /* ============================================
+                   PHONE FRAME
+                   ============================================ */
+        .phone-frame {
+            width: 390px;
+            max-width: 100%;
+            height: 844px;
+            max-height: 95vh;
+            background: var(--bg-primary);
+            border-radius: 38px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(37, 99, 235, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* ============================================
+                   STATUS BAR
+                   ============================================ */
+        .status-bar {
+            padding: 14px 28px 8px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: transparent;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .status-bar .time {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .notch {
+            width: 150px;
+            height: 30px;
+            background: #0F172A;
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+        }
+        
+        /* ============================================
+                   SCROLLABLE CONTENT
+                   ============================================ */
+        .app-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0 24px 20px;
+            scroll-behavior: smooth;
+            opacity: 0;
+            transition: opacity 0.8s ease 0.3s;
+        }
+        
+        .app-content.visible {
+            opacity: 1;
+        }
+        
+        .app-content::-webkit-scrollbar {
+            width: 0;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ============================================
+                   HEADER
+                   ============================================ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .header-left {
+            flex: 1;
+        }
+        
+        .greeting {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        
+        .greeting strong {
+            color: var(--text-primary);
+        }
+        
+        .main-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-top: 2px;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .main-title .accent {
+            color: var(--blue-accent);
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .header-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 15px;
+            position: relative;
+        }
+        
+        .header-icon:hover {
+            background: var(--bg-elevated);
+            border-color: var(--blue-accent);
+            color: var(--blue-accent);
+            transform: scale(1.04);
+        }
+        
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 15px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .notification-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--error);
+            border-radius: var(--radius-full);
+            position: absolute;
+            top: 7px;
+            right: 7px;
+            border: 2px solid var(--bg-surface);
+        }
+        
+        /* ============================================
+                   HOME TAB
+                   ============================================ */
+        /* Stats Overview */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 12px;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        
+        .stat-card:hover {
+            border-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        
+        .stat-card .stat-number {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .stat-card .stat-number .blue {
+            color: var(--blue-accent);
+        }
+        
+        .stat-card .stat-number .teal {
+            color: var(--teal);
+        }
+        
+        .stat-card .stat-number .slate {
+            color: var(--slate);
+        }
+        
+        .stat-card .stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        
+        .stat-card .stat-change {
+            font-size: 10px;
+            font-weight: 600;
+            margin-top: 4px;
+            display: inline-block;
+        }
+        
+        .stat-card .stat-change.up {
+            color: var(--success);
+        }
+        
+        .stat-card .stat-change.down {
+            color: var(--error);
+        }
+        
+        /* Progress Section */
+        .progress-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition-smooth);
+        }
+        
+        .progress-section:hover {
+            border-color: var(--blue-accent);
+            box-shadow: 0 4px 16px var(--shadow-color);
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .progress-header .label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .progress-header .value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .progress-header .value span {
+            color: var(--blue-accent);
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            width: 72%;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            transition: width 1s ease;
+            position: relative;
+        }
+        
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+            border-radius: var(--radius-full);
+        }
+        
+        .progress-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+        
+        .progress-details span {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .quick-action {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 8px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+        
+        .quick-action:hover {
+            border-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        
+        .quick-action .icon {
+            font-size: 20px;
+            color: var(--blue-accent);
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .quick-action .icon.teal {
+            color: var(--teal);
+        }
+        
+        .quick-action .icon.slate {
+            color: var(--slate);
+        }
+        
+        .quick-action .icon.purple {
+            color: #6366F1;
+        }
+        
+        .quick-action .label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .quick-action .sub-label {
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+        
+        .quick-action.primary {
+            background: var(--gradient-primary);
+            border-color: transparent;
+        }
+        
+        .quick-action.primary .icon {
+            color: white;
+        }
+        
+        .quick-action.primary .label {
+            color: white;
+        }
+        
+        .quick-action.primary .sub-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .quick-action.primary:hover {
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* App List */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .section-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .section-header .see-all {
+            font-size: 12px;
+            color: var(--blue-accent);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        
+        .section-header .see-all:hover {
+            color: var(--blue-dark);
+        }
+        
+        .app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .app-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+        
+        .app-item:hover {
+            border-color: var(--blue-accent);
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        
+        .app-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+            color: white;
+        }
+        
+        .app-icon.instagram { background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737); }
+        .app-icon.youtube { background: #FF0000; }
+        .app-icon.tiktok { background: #000; color: #25F4EE; }
+        .app-icon.twitter { background: #1DA1F2; }
+        .app-icon.whatsapp { background: #25D366; }
+        .app-icon.linkedin { background: #0A66C2; }
+        .app-icon.reddit { background: #FF4500; }
+        .app-icon.snapchat { background: #FFFC00; color: #000; }
+        
+        .app-info {
+            flex: 1;
+        }
+        
+        .app-info .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .app-info .sub {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 1px;
+        }
+        
+        .app-info .sub i {
+            margin-right: 4px;
+            font-size: 10px;
+        }
+        
+        .app-right {
+            text-align: right;
+        }
+        
+        .app-time {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .app-time .warning {
+            color: var(--warning);
+        }
+        
+        .app-time .danger {
+            color: var(--error);
+        }
+        
+        .app-percentage {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+        
+        /* ============================================
+                   FOCUS TAB
+                   ============================================ */
+        .focus-hero {
+            text-align: center;
+            padding: 4px 0 16px;
+        }
+        
+        .focus-hero .title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .focus-hero .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        
+        .focus-timer {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 12px auto 20px;
+        }
+        
+        .focus-timer svg {
+            transform: rotate(-90deg);
+        }
+        
+        .focus-timer .ring-bg {
+            fill: none;
+            stroke: var(--bg-elevated);
+            stroke-width: 8;
+        }
+        
+        .focus-timer .ring-progress {
+            fill: none;
+            stroke: url(#focusGradient);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 633;
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s ease;
+        }
+        
+        .focus-timer .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .focus-timer .center .time {
+            font-size: 44px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .focus-timer .center .label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        
+        .focus-presets {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .preset-btn {
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-family: var(--font-family);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        
+        .preset-btn:hover {
+            border-color: var(--blue-accent);
+            color: var(--text-primary);
+        }
+        
+        .preset-btn.active {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+        }
+        
+        .focus-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 4px 0 20px;
+        }
+        
+        .focus-btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: var(--font-family);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .focus-btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+        }
+        
+        .focus-btn-primary:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 24px rgba(37, 99, 235, 0.35);
+        }
+        
+        .focus-btn-secondary {
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .focus-btn-secondary:hover {
+            border-color: var(--blue-accent);
+            color: var(--text-primary);
+        }
+        
+        .focus-btn-success {
+            background: var(--gradient-secondary);
+            color: white;
+            box-shadow: 0 4px 16px rgba(13, 148, 136, 0.25);
+        }
+        
+        .focus-btn-success:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 24px rgba(13, 148, 136, 0.35);
+        }
+        
+        .focus-btn-danger {
+            background: var(--error);
+            color: white;
+        }
+        
+        .focus-btn-danger:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+        
+        .focus-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 4px;
+        }
+        
+        .focus-stat {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        
+        .focus-stat:hover {
+            border-color: var(--blue-accent);
+        }
+        
+        .focus-stat .number {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .focus-stat .stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+        
+        /* ============================================
+                   ANALYTICS TAB
+                   ============================================ */
+        .analytics-header {
+            margin-bottom: 16px;
+        }
+        
+        .analytics-header .period {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        
+        .period-btn {
+            padding: 5px 14px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-family: var(--font-family);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        
+        .period-btn:hover {
+            border-color: var(--blue-accent);
+            color: var(--text-primary);
+        }
+        
+        .period-btn.active {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+        }
+        
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .analytics-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 12px;
+            transition: var(--transition-smooth);
+        }
+        
+        .analytics-card:hover {
+            border-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        
+        .analytics-card .card-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .analytics-card .card-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+        
+        .analytics-card .card-change {
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 4px;
+            display: inline-block;
+        }
+        
+        .analytics-card .card-change.up {
+            color: var(--success);
+        }
+        
+        .analytics-card .card-change.down {
+            color: var(--error);
+        }
+        
+        .analytics-card.accent {
+            background: var(--gradient-primary);
+            border-color: transparent;
+        }
+        
+        .analytics-card.accent .card-value,
+        .analytics-card.accent .card-label,
+        .analytics-card.accent .card-change {
+            color: white;
+        }
+        
+        .chart-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 16px 12px;
+            margin-bottom: 16px;
+            transition: var(--transition-smooth);
+        }
+        
+        .chart-container:hover {
+            border-color: var(--blue-accent);
+        }
+        
+        .chart-container .chart-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 100px;
+            gap: 6px;
+        }
+        
+        .chart-bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            height: 100%;
+            justify-content: flex-end;
+        }
+        
+        .chart-bar {
+            width: 100%;
+            max-width: 28px;
+            border-radius: 3px 3px 0 0;
+            background: var(--gradient-primary);
+            transition: height 0.8s ease;
+            min-height: 4px;
+            position: relative;
+        }
+        
+        .chart-bar .bar-value {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        
+        .chart-bar-label {
+            font-size: 9px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        
+        .chart-bar.alt {
+            background: var(--gradient-secondary);
+        }
+        
+        .chart-bar.accent-bar {
+            background: var(--gradient-accent);
+        }
+        
+        .insights-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .insight-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition-smooth);
+        }
+        
+        .insight-item:hover {
+            border-color: var(--blue-accent);
+        }
+        
+        .insight-item .insight-icon {
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .insight-item .insight-icon.blue {
+            background: var(--blue-bg);
+            color: var(--blue-accent);
+        }
+        
+        .insight-item .insight-icon.teal {
+            background: var(--teal-bg);
+            color: var(--teal);
+        }
+        
+        .insight-item .insight-icon.slate {
+            background: var(--bg-elevated);
+            color: var(--slate);
+        }
+        
+        .insight-item .insight-icon.purple {
+            background: #EEF2FF;
+            color: #6366F1;
+        }
+        
+        .insight-item .insight-text {
+            flex: 1;
+        }
+        
+        .insight-item .insight-text .main {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .insight-item .insight-text .sub {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        
+        /* ============================================
+                   SETTINGS TAB
+                   ============================================ */
+        .settings-group {
+            margin-bottom: 20px;
+        }
+        
+        .settings-group .group-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 6px;
+            padding-left: 4px;
+        }
+        
+        .settings-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+        
+        .settings-item:first-of-type {
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+        
+        .settings-item:last-of-type {
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+        }
+        
+        .settings-item:only-child {
+            border-radius: var(--radius-md);
+        }
+        
+        .settings-item:hover {
+            border-color: var(--blue-accent);
+            background: var(--bg-elevated);
+        }
+        
+        .settings-item .settings-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .settings-item .settings-icon.blue {
+            background: var(--blue-bg);
+            color: var(--blue-accent);
+        }
+        
+        .settings-item .settings-icon.teal {
+            background: var(--teal-bg);
+            color: var(--teal);
+        }
+        
+        .settings-item .settings-icon.slate {
+            background: var(--bg-elevated);
+            color: var(--slate);
+        }
+        
+        .settings-item .settings-icon.purple {
+            background: #EEF2FF;
+            color: #6366F1;
+        }
+        
+        .settings-item .settings-icon.orange {
+            background: #FFFBEB;
+            color: var(--warning);
+        }
+        
+        .settings-item .settings-info {
+            flex: 1;
+        }
+        
+        .settings-item .settings-info .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .settings-item .settings-info .desc {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 1px;
+        }
+        
+        .settings-item .settings-right {
+            color: var(--text-muted);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .settings-item .settings-right .value {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .toggle {
+            width: 40px;
+            height: 22px;
+            border-radius: var(--radius-full);
+            background: var(--bg-elevated);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .toggle.active {
+            background: var(--gradient-primary);
+        }
+        
+        .toggle .toggle-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: var(--radius-full);
+            background: white;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        }
+        
+        .toggle.active .toggle-dot {
+            left: 20px;
+        }
+        
+        /* ============================================
+                   PROFILE TAB
+                   ============================================ */
+        .profile-hero {
+            text-align: center;
+            padding: 8px 0 16px;
+        }
+        
+        .profile-avatar-large {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 800;
+            color: white;
+            margin: 0 auto 10px;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
+            position: relative;
+        }
+        
+        .profile-avatar-large .edit-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            border: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        
+        .profile-avatar-large .edit-badge:hover {
+            border-color: var(--blue-accent);
+            color: var(--blue-accent);
+        }
+        
+        .profile-hero .name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .profile-hero .handle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .profile-hero .bio {
+            font-size: 13px;
+            color: var(--text-secondary);
+            max-width: 280px;
+            margin: 4px auto 0;
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        
+        .profile-stat {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        
+        .profile-stat:hover {
+            border-color: var(--blue-accent);
+        }
+        
+        .profile-stat .number {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .profile-stat .stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+        
+        .badge-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .badge-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px 6px;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        
+        .badge-item:hover {
+            border-color: var(--blue-accent);
+            transform: translateY(-2px);
+        }
+        
+        .badge-item .badge-icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        
+        .badge-item .badge-name {
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .badge-item.locked {
+            opacity: 0.4;
+        }
+        
+        .badge-item.locked .badge-icon {
+            filter: grayscale(1);
+        }
+        
+        /* ============================================
+                   BOTTOM NAVIGATION
+                   ============================================ */
+        .bottom-nav {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            padding: 4px 12px 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-shrink: 0;
+            margin-top: auto;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            position: relative;
+            flex: 1;
+            max-width: 60px;
+        }
+        
+        .nav-item:hover {
+            color: var(--text-secondary);
+        }
+        
+        .nav-item.active {
+            color: var(--blue-accent);
+        }
+        
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+        }
+        
+        .nav-item i {
+            font-size: 18px;
+        }
+        
+        .nav-item .label {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+        
+        .nav-item .badge {
+            position: absolute;
+            top: -2px;
+            right: 2px;
+            min-width: 16px;
+            height: 16px;
+            background: var(--error);
+            border-radius: var(--radius-full);
+            font-size: 9px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+        }
+        
+        /* ============================================
+                   RESPONSIVE
+                   ============================================ */
+        @media (max-width: 420px) {
+            .phone-frame {
+                border-radius: 20px;
+                height: 100vh;
+                max-height: 100vh;
+            }
+            
+            .splash-screen {
+                border-radius: 20px;
+            }
+            
+            .app-content {
+                padding: 0 16px 16px;
+            }
+            
+            .status-bar {
+                padding: 10px 16px 6px;
+            }
+            
+            .focus-timer {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .focus-timer .center .time {
+                font-size: 36px;
+            }
+            
+            .badge-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (min-width: 421px) {
+            body {
+                background: #E8EDF5;
+            }
+        }
+        
+        .tab-spacer {
+            height: 12px;
+        }
+        
+        .interactive-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 6px 0 2px;
+            font-weight: 500;
+        }
+        
+        .interactive-hint i {
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+    PHONE FRAME
+    ============================================ -->
+    <div class="phone-frame" id="phoneFrame">
+        
+        <!-- Notch -->
+        <div class="notch"></div>
+        
+        <!-- ============================================
+        SPLASH SCREEN
+        ============================================ -->
+        <div class="splash-screen" id="splashScreen">
+            <div class="splash-logo">FocusFlow</div>
+            <div class="splash-logo-sub">Focus • Flow • Flourish</div>
+            
+            <div class="splash-ring"></div>
+            
+            <div class="splash-progress-container">
+                <div class="splash-progress-bar" id="splashProgress"></div>
+            </div>
+            
+            <div class="splash-dots">
+                <div class="splash-dot"></div>
+                <div class="splash-dot"></div>
+                <div class="splash-dot"></div>
+            </div>
+            
+            <div class="splash-tagline">Built for deep work</div>
+            <div class="splash-version">v1.0.0</div>
+        </div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-three-quarters"></i>
+            </div>
+        </div>
+        
+        <!-- ============================================
+        APP CONTENT
+        ============================================ -->
+        <div class="app-content" id="appContent">
+            
+            <!-- ==========================================
+            TAB 1: HOME
+            ========================================== -->
+            <div class="tab-content active" id="tab-home">
+                <!-- Header -->
+                <div class="header">
+                    <div class="header-left">
+                        <div class="greeting">Good Morning, <strong>Alex</strong></div>
+                        <div class="main-title">Focus<span class="accent">Flow</span></div>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-icon" title="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-dot"></span>
+                        </div>
+                        <div class="avatar">A</div>
+                    </div>
+                </div>
+                
+                <!-- Stats Overview -->
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-number"><span class="blue">5</span></div>
+                        <div class="stat-label">Day Streak</div>
+                        <div class="stat-change up"><i class="fas fa-arrow-up"></i> +2</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number"><span class="teal">12.5</span>h</div>
+                        <div class="stat-label">Focus Time</div>
+                        <div class="stat-change up"><i class="fas fa-arrow-up"></i> 18%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number"><span class="slate">87</span>%</div>
+                        <div class="stat-label">Completion</div>
+                        <div class="stat-change up"><i class="fas fa-arrow-up"></i> 5%</div>
+                    </div>
+                </div>
+                
+                <!-- Progress Section -->
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="label">Daily Goal Progress</span>
+                        <span class="value"><span>2h 10m</span> / 3h</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width:72%;"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span><i class="far fa-clock"></i> 50m remaining</span>
+                        <span><i class="far fa-check-circle"></i> 72% complete</span>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="quick-action primary" onclick="switchTab('focus')">
+                        <span class="icon"><i class="fas fa-play"></i></span>
+                        <div class="label">Focus</div>
+                        <div class="sub-label">Start session</div>
+                    </div>
+                    <div class="quick-action">
+                        <span class="icon teal"><i class="fas fa-pen"></i></span>
+                        <div class="label">Log</div>
+                        <div class="sub-label">Track usage</div>
+                    </div>
+                    <div class="quick-action" onclick="switchTab('analytics')">
+                        <span class="icon purple"><i class="fas fa-chart-line"></i></span>
+                        <div class="label">Analytics</div>
+                        <div class="sub-label">View insights</div>
+                    </div>
+                    <div class="quick-action">
+                        <span class="icon slate"><i class="fas fa-lightbulb"></i></span>
+                        <div class="label">Suggest</div>
+                        <div class="sub-label">3 tips ready</div>
+                    </div>
+                </div>
+                
+                <!-- Today's Usage -->
+                <div class="section-header">
+                    <h3>Today's Usage</h3>
+                    <span class="see-all">View All →</span>
+                </div>
+                
+                <div class="app-list">
+                    <div class="app-item">
+                        <div class="app-icon instagram"><i class="fab fa-instagram"></i></div>
+                        <div class="app-info">
+                            <div class="name">Instagram</div>
+                            <div class="sub"><i class="far fa-clock"></i> 12 sessions</div>
+                        </div>
+                        <div class="app-right">
+                            <div class="app-time danger">1h 20m</div>
+                            <div class="app-percentage">28% of total</div>
+                        </div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon youtube"><i class="fab fa-youtube"></i></div>
+                        <div class="app-info">
+                            <div class="name">YouTube</div>
+                            <div class="sub"><i class="far fa-clock"></i> 8 sessions</div>
+                        </div>
+                        <div class="app-right">
+                            <div class="app-time warning">45m</div>
+                            <div class="app-percentage">16% of total</div>
+                        </div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon tiktok"><i class="fab fa-tiktok"></i></div>
+                        <div class="app-info">
+                            <div class="name">TikTok</div>
+                            <div class="sub"><i class="far fa-clock"></i> 15 sessions</div>
+                        </div>
+                        <div class="app-right">
+                            <div class="app-time">30m</div>
+                            <div class="app-percentage">11% of total</div>
+                        </div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon twitter"><i class="fab fa-twitter"></i></div>
+                        <div class="app-info">
+                            <div class="name">Twitter</div>
+                            <div class="sub"><i class="far fa-clock"></i> 6 sessions</div>
+                        </div>
+                        <div class="app-right">
+                            <div class="app-time">15m</div>
+                            <div class="app-percentage">5% of total</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-hint">
+                    <i class="fas fa-mouse-pointer"></i> Hover for interactions
+                </div>
+                <div class="tab-spacer"></div>
+            </div>
+            
+            <!-- ==========================================
+            TAB 2: FOCUS
+            ========================================== -->
+            <div class="tab-content" id="tab-focus">
+                <div class="header" style="margin-bottom:4px;">
+                    <div class="header-left">
+                        <div class="greeting"><i class="fas fa-clock" style="margin-right:4px;"></i> Focus Mode</div>
+                        <div class="main-title" style="font-size:22px;">Deep Work</div>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-icon" title="History">
+                            <i class="fas fa-history"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="focus-hero">
+                    <div class="title">Stay in the Zone</div>
+                    <div class="subtitle">Build momentum with focused sessions</div>
+                </div>
+                
+                <!-- Timer -->
+                <div class="focus-timer">
+                    <svg width="220" height="220" viewBox="0 0 220 220">
+                        <defs>
+                            <linearGradient id="focusGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2563EB;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#0D9488;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="ring-bg" cx="110" cy="110" r="101" />
+                        <circle class="ring-progress" cx="110" cy="110" r="101" 
+                                stroke-dasharray="633" stroke-dashoffset="0" />
+                    </svg>
+                    <div class="center">
+                        <div class="time" id="timerDisplay2">25:00</div>
+                        <div class="label" id="timerLabel2">Ready</div>
+                    </div>
+                </div>
+                
+                <!-- Presets -->
+                <div class="focus-presets">
+                    <button class="preset-btn active" data-minutes="5" onclick="setPreset2(5, this)">5m</button>
+                    <button class="preset-btn" data-minutes="15" onclick="setPreset2(15, this)">15m</button>
+                    <button class="preset-btn" data-minutes="25" onclick="setPreset2(25, this)">25m</button>
+                    <button class="preset-btn" data-minutes="45" onclick="setPreset2(45, this)">45m</button>
+                    <button class="preset-btn" data-minutes="60" onclick="setPreset2(60, this)">60m</button>
+                </div>
+                
+                <!-- Controls -->
+                <div class="focus-controls">
+                    <button class="focus-btn focus-btn-primary" id="focusStartBtn2" onclick="startTimer2()">
+                        <i class="fas fa-play"></i> Start
+                    </button>
+                    <button class="focus-btn focus-btn-secondary" id="focusPauseBtn2" onclick="pauseTimer2()" style="display:none;">
+                        <i class="fas fa-pause"></i> Pause
+                    </button>
+                    <button class="focus-btn focus-btn-success" id="focusResumeBtn2" onclick="resumeTimer2()" style="display:none;">
+                        <i class="fas fa-play"></i> Resume
+                    </button>
+                    <button class="focus-btn focus-btn-danger" id="focusEndBtn2" onclick="endTimer2()" style="display:none;">
+                        <i class="fas fa-stop"></i> End
+                    </button>
+                </div>
+                
+                <!-- Stats -->
+                <div class="focus-stats">
+                    <div class="focus-stat">
+                        <div class="number">12</div>
+                        <div class="stat-label">Today's Sessions</div>
+                    </div>
+                    <div class="focus-stat">
+                        <div class="number">4.2h</div>
+                        <div class="stat-label">Total Focus</div>
+                    </div>
+                    <div class="focus-stat">
+                        <div class="number">89%</div>
+                        <div class="stat-label">Completion Rate</div>
+                    </div>
+                </div>
+                
+                <div class="tab-spacer"></div>
+            </div>
+            
+            <!-- ==========================================
+            TAB 3: ANALYTICS
+            ========================================== -->
+            <div class="tab-content" id="tab-analytics">
+                <div class="header" style="margin-bottom:4px;">
+                    <div class="header-left">
+                        <div class="greeting"><i class="fas fa-chart-bar" style="margin-right:4px;"></i> Analytics</div>
+                        <div class="main-title" style="font-size:22px;">Performance</div>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-icon" title="Export">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="analytics-header">
+                    <div class="period">
+                        <button class="period-btn active" onclick="setPeriod2('week', this)">Week</button>
+                        <button class="period-btn" onclick="setPeriod2('month', this)">Month</button>
+                        <button class="period-btn" onclick="setPeriod2('year', this)">Year</button>
+                    </div>
+                </div>
+                
+                <!-- Stats Grid -->
+                <div class="analytics-grid">
+                    <div class="analytics-card accent">
+                        <div class="card-value">12.5h</div>
+                        <div class="card-label">Total Focus Time</div>
+                        <div class="card-change up"><i class="fas fa-arrow-up"></i> 18%</div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-value">5</div>
+                        <div class="card-label">Day Streak</div>
+                        <div class="card-change up"><i class="fas fa-arrow-up"></i> Best: 12</div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-value">87%</div>
+                        <div class="card-label">Goal Completion</div>
+                        <div class="card-change up"><i class="fas fa-arrow-up"></i> +5%</div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-value">3.2h</div>
+                        <div class="card-label">Daily Average</div>
+                        <div class="card-change down"><i class="fas fa-arrow-down"></i> 0.5h</div>
+                    </div>
+                </div>
+                
+                <!-- Chart -->
+                <div class="chart-container">
+                    <div class="chart-title">Weekly Focus Activity</div>
+                    <div class="chart-bars">
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height:45%;">
+                                <span class="bar-value">2.5h</span>
+                            </div>
+                            <span class="chart-bar-label">Mon</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height:60%;">
+                                <span class="bar-value">3.2h</span>
+                            </div>
+                            <span class="chart-bar-label">Tue</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height:80%;">
+                                <span class="bar-value">4.5h</span>
+                            </div>
+                            <span class="chart-bar-label">Wed</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height:95%;">
+                                <span class="bar-value">5.1h</span>
+                            </div>
+                            <span class="chart-bar-label">Thu</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar alt" style="height:70%;">
+                                <span class="bar-value">3.8h</span>
+                            </div>
+                            <span class="chart-bar-label">Fri</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar alt" style="height:40%;">
+                                <span class="bar-value">2.0h</span>
+                            </div>
+                            <span class="chart-bar-label">Sat</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar accent-bar" style="height:25%;">
+                                <span class="bar-value">1.2h</span>
+                            </div>
+                            <span class="chart-bar-label">Sun</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Insights -->
+                <div class="section-header">
+                    <h3>Key Insights</h3>
+                </div>
+                
+                <div class="insights-list">
+                    <div class="insight-item">
+                        <div class="insight-icon blue"><i class="fas fa-bolt"></i></div>
+                        <div class="insight-text">
+                            <div class="main">Peak performance: 10 AM - 12 PM</div>
+                            <div class="sub">Morning hours show highest productivity</div>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon teal"><i class="fas fa-trophy"></i></div>
+                        <div class="insight-text">
+                            <div class="main">Best day: Wednesday (5.1 hours)</div>
+                            <div class="sub">Midweek momentum is strongest</div>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon purple"><i class="fas fa-fire"></i></div>
+                        <div class="insight-text">
+                            <div class="main">5-day streak active</div>
+                            <div class="sub">7 days unlocks new achievement</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-spacer"></div>
+            </div>
+            
+            <!-- ==========================================
+            TAB 4: SETTINGS
+            ========================================== -->
+            <div class="tab-content" id="tab-settings">
+                <div class="header" style="margin-bottom:4px;">
+                    <div class="header-left">
+                        <div class="greeting"><i class="fas fa-sliders-h" style="margin-right:4px;"></i> Settings</div>
+                        <div class="main-title" style="font-size:22px;">Preferences</div>
+                    </div>
+                </div>
+                
+                <!-- Appearance -->
+                <div class="settings-group">
+                    <div class="group-title">Appearance</div>
+                    
+                    <div class="settings-item" onclick="toggleTheme2()">
+                        <div class="settings-icon blue"><i class="fas fa-moon"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Dark Mode</div>
+                            <div class="desc">Switch theme preference</div>
+                        </div>
+                        <div class="settings-right">
+                            <div class="toggle active" id="themeToggle2">
+                                <div class="toggle-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-item">
+                        <div class="settings-icon purple"><i class="fas fa-palette"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Theme Color</div>
+                            <div class="desc">Corporate Clarity (current)</div>
+                        </div>
+                        <div class="settings-right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Goals -->
+                <div class="settings-group">
+                    <div class="group-title">Goals</div>
+                    
+                    <div class="settings-item">
+                        <div class="settings-icon teal"><i class="fas fa-bullseye"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Daily Focus Goal</div>
+                            <div class="desc">Set your daily target</div>
+                        </div>
+                        <div class="settings-right">
+                            <span class="value">3h 00m</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-item">
+                        <div class="settings-icon teal"><i class="fas fa-clock"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Session Duration</div>
+                            <div class="desc">Default timer setting</div>
+                        </div>
+                        <div class="settings-right">
+                            <span class="value">25 min</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notifications -->
+                <div class="settings-group">
+                    <div class="group-title">Notifications</div>
+                    
+                    <div class="settings-item">
+                        <div class="settings-icon orange"><i class="fas fa-bell"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Push Notifications</div>
+                            <div class="desc">Reminders and updates</div>
+                        </div>
+                        <div class="settings-right">
+                            <div class="toggle active" id="notifToggle2">
+                                <div class="toggle-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-item">
+                        <div class="settings-icon orange"><i class="fas fa-clock"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Check-in Reminders</div>
+                            <div class="desc">Daily progress prompts</div>
+                        </div>
+                        <div class="settings-right">
+                            <span class="value">9:00 AM</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Apps -->
+                <div class="settings-group">
+                    <div class="group-title">Tracked Apps</div>
+                    
+                    <div class="settings-item">
+                        <div class="settings-icon slate"><i class="fas fa-apps"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Manage Tracked Apps</div>
+                            <div class="desc">6 apps currently monitored</div>
+                        </div>
+                        <div class="settings-right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Account -->
+                <div class="settings-group">
+                    <div class="group-title">Account</div>
+                    
+                    <div class="settings-item">
+                        <div class="settings-icon blue"><i class="fas fa-user"></i></div>
+                        <div class="settings-info">
+                            <div class="name">Profile Settings</div>
+                            <div class="desc">Edit your information</div>
+                        </div>
+                        <div class="settings-right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-item" style="border-color: rgba(220, 38, 38, 0.15);">
+                        <div class="settings-icon" style="background:rgba(220, 38, 38, 0.1); color:var(--error);">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div class="settings-info">
+                            <div class="name" style="color:var(--error);">Sign Out</div>
+                            <div class="desc">Log out of your account</div>
+                        </div>
+                        <div class="settings-right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-hint" style="padding:10px 0;">
+                    <i class="fas fa-info-circle"></i> Version 1.0.0
+                </div>
+                <div class="tab-spacer"></div>
+            </div>
+            
+            <!-- ==========================================
+            TAB 5: PROFILE
+            ========================================== -->
+            <div class="tab-content" id="tab-profile">
+                <div class="header" style="margin-bottom:4px;">
+                    <div class="header-left">
+                        <div class="greeting"><i class="fas fa-user" style="margin-right:4px;"></i> Profile</div>
+                        <div class="main-title" style="font-size:22px;">Your Journey</div>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-icon" title="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Hero -->
+                <div class="profile-hero">
+                    <div class="profile-avatar-large">
+                        A
+                        <div class="edit-badge">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    <div class="name">Alex Morgan</div>
+                    <div class="handle">@alexfocus • Member since 2026</div>
+                    <div class="bio">Building better habits through focused work</div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <div class="number">47</div>
+                        <div class="stat-label">Total Sessions</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="number">5</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="number">89%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                </div>
+                
+                <!-- Badges -->
+                <div class="section-header">
+                    <h3>Achievements</h3>
+                    <span class="see-all">View All →</span>
+                </div>
+                
+                <div class="badge-grid">
+                    <div class="badge-item">
+                        <span class="badge-icon">🚀</span>
+                        <span class="badge-name">First Focus</span>
+                    </div>
+                    <div class="badge-item">
+                        <span class="badge-icon">🔥</span>
+                        <span class="badge-name">3-Day Streak</span>
+                    </div>
+                    <div class="badge-item">
+                        <span class="badge-icon">⭐</span>
+                        <span class="badge-name">10 Hours</span>
+                    </div>
+                    <div class="badge-item locked">
+                        <span class="badge-icon">👑</span>
+                        <span class="badge-name">7-Day Streak</span>
+                    </div>
+                    <div class="badge-item locked">
+                        <span class="badge-icon">💪</span>
+                        <span class="badge-name">50 Sessions</span>
+                    </div>
+                    <div class="badge-item locked">
+                        <span class="badge-icon">🏆</span>
+                        <span class="badge-name">100 Hours</span>
+                    </div>
+                    <div class="badge-item locked">
+                        <span class="badge-icon">🎯</span>
+                        <span class="badge-name">Perfect Week</span>
+                    </div>
+                    <div class="badge-item locked">
+                        <span class="badge-icon">🧘</span>
+                        <span class="badge-name">Zen Master</span>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="section-header">
+                    <h3>Recent Activity</h3>
+                </div>
+                
+                <div class="app-list">
+                    <div class="app-item">
+                        <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--blue-accent);">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="app-info">
+                            <div class="name">Focus Session</div>
+                            <div class="sub">25 min completed • 2h ago</div>
+                        </div>
+                        <div style="font-size:13px;color:var(--success);"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="app-item">
+                        <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--teal-bg);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--teal);">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                        <div class="app-info">
+                            <div class="name">Logged Usage</div>
+                            <div class="sub">Instagram • 25 min • 3h ago</div>
+                        </div>
+                        <div style="font-size:13px;color:var(--text-muted);"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="app-item">
+                        <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:#EEF2FF;display:flex;align-items:center;justify-content:center;font-size:16px;color:#6366F1;">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="app-info">
+                            <div class="name">Achievement Unlocked</div>
+                            <div class="sub">10 Hours total focus • 1d ago</div>
+                        </div>
+                        <div style="font-size:13px;color:var(--warning);"><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                
+                <div class="tab-spacer"></div>
+            </div>
+            
+        </div>
+        
+        <!-- ============================================
+        BOTTOM NAVIGATION
+        ============================================ -->
+        <div class="bottom-nav">
+            <div class="nav-item active" data-tab="home" onclick="switchTab('home')">
+                <i class="fas fa-home"></i>
+                <span class="label">Home</span>
+            </div>
+            <div class="nav-item" data-tab="focus" onclick="switchTab('focus')">
+                <i class="fas fa-clock"></i>
+                <span class="label">Focus</span>
+            </div>
+            <div class="nav-item" data-tab="analytics" onclick="switchTab('analytics')">
+                <i class="fas fa-chart-bar"></i>
+                <span class="label">Analytics</span>
+            </div>
+            <div class="nav-item" data-tab="settings" onclick="switchTab('settings')">
+                <i class="fas fa-sliders-h"></i>
+                <span class="label">Settings</span>
+            </div>
+            <div class="nav-item" data-tab="profile" onclick="switchTab('profile')" style="position:relative;">
+                <i class="fas fa-user"></i>
+                <span class="label">Profile</span>
+                <span class="badge">3</span>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- ============================================
+    JAVASCRIPT
+    ============================================ -->
+    <script>
+        // ============================================
+        // SPLASH SCREEN - 10 SECOND ANIMATION
+        // ============================================
+        (function() {
+            const splashScreen = document.getElementById('splashScreen');
+            const progressBar = document.getElementById('splashProgress');
+            const appContent = document.getElementById('appContent');
+            const phoneFrame = document.getElementById('phoneFrame');
+            
+            let progress = 0;
+            const duration = 10000; // 10 seconds
+            const interval = 50; // Update every 50ms
+            const steps = duration / interval;
+            let currentStep = 0;
+            
+            // Animate progress bar
+            const progressInterval = setInterval(() => {
+                currentStep++;
+                progress = (currentStep / steps) * 100;
+                progressBar.style.width = Math.min(progress, 100) + '%';
+                
+                // Add slight bounce effect when near completion
+                if (progress >= 95) {
+                    progressBar.style.transition = 'width 0.1s ease-out';
+                }
+                
+                // Random slight speed variations for natural feel
+                if (Math.random() > 0.9) {
+                    // Small jump
+                    progress += 0.5;
+                    progressBar.style.width = Math.min(progress, 100) + '%';
+                }
+            }, interval);
+            
+            // After 10 seconds, hide splash and show app
+            setTimeout(() => {
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                
+                // Add a small delay before hiding for completion effect
+                setTimeout(() => {
+                    splashScreen.classList.add('hidden');
+                    appContent.classList.add('visible');
+                    
+                    // Remove splash from DOM after transition
+                    setTimeout(() => {
+                        splashScreen.style.display = 'none';
+                    }, 800);
+                    
+                    console.log('🚀 FocusFlow launched successfully!');
+                    console.log('⏱️ Splash screen duration: 10 seconds');
+                }, 300);
+                
+            }, duration);
+            
+            // Also handle if user clicks (skip) - but only after 3 seconds
+            let canSkip = false;
+            setTimeout(() => {
+                canSkip = true;
+            }, 3000);
+            
+            splashScreen.addEventListener('click', function() {
+                if (canSkip) {
+                    clearInterval(progressInterval);
+                    progressBar.style.width = '100%';
+                    
+                    setTimeout(() => {
+                        splashScreen.classList.add('hidden');
+                        appContent.classList.add('visible');
+                        setTimeout(() => {
+                            splashScreen.style.display = 'none';
+                        }, 800);
+                    }, 300);
+                    
+                    console.log('⏭️ Splash screen skipped by user');
+                }
+            });
+            
+        })();
+        
+        // ============================================
+        // TAB SWITCHING
+        // ============================================
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.nav-item[data-tab="${tabId}"]`).classList.add('active');
+            
+            document.getElementById('appContent').scrollTop = 0;
+        }
+        
+        // ============================================
+        // FOCUS TIMER 2
+        // ============================================
+        let timerInterval2 = null;
+        let totalSeconds2 = 1500;
+        let remainingSeconds2 = 1500;
+        let isRunning2 = false;
+        let isPaused2 = false;
+        let currentPreset2 = 25;
+        
+        function updateTimerDisplay2() {
+            const mins = Math.floor(remainingSeconds2 / 60);
+            const secs = remainingSeconds2 % 60;
+            document.getElementById('timerDisplay2').textContent = 
+                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            
+            const progress = 1 - (remainingSeconds2 / totalSeconds2);
+            const circumference = 633;
+            const offset = circumference * progress;
+            document.querySelector('.focus-timer .ring-progress').style.strokeDashoffset = offset;
+            
+            const label = document.getElementById('timerLabel2');
+            if (remainingSeconds2 === 0) {
+                label.textContent = 'Complete!';
+            } else if (isRunning2) {
+                label.textContent = 'Focusing...';
+            } else if (isPaused2) {
+                label.textContent = 'Paused';
+            } else {
+                label.textContent = 'Ready';
+            }
+        }
+        
+        function setPreset2(minutes, btn) {
+            if (isRunning2) return;
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentPreset2 = minutes;
+            totalSeconds2 = minutes * 60;
+            remainingSeconds2 = totalSeconds2;
+            isPaused2 = false;
+            updateTimerDisplay2();
+            
+            document.getElementById('focusStartBtn2').style.display = 'flex';
+            document.getElementById('focusPauseBtn2').style.display = 'none';
+            document.getElementById('focusResumeBtn2').style.display = 'none';
+            document.getElementById('focusEndBtn2').style.display = 'none';
+        }
+        
+        function startTimer2() {
+            if (isRunning2) return;
+            if (remainingSeconds2 <= 0) remainingSeconds2 = totalSeconds2;
+            
+            isRunning2 = true;
+            isPaused2 = false;
+            
+            document.getElementById('focusStartBtn2').style.display = 'none';
+            document.getElementById('focusPauseBtn2').style.display = 'flex';
+            document.getElementById('focusResumeBtn2').style.display = 'none';
+            document.getElementById('focusEndBtn2').style.display = 'flex';
+            
+            timerInterval2 = setInterval(() => {
+                remainingSeconds2--;
+                updateTimerDisplay2();
+                if (remainingSeconds2 <= 0) {
+                    clearInterval(timerInterval2);
+                    isRunning2 = false;
+                    document.getElementById('focusStartBtn2').style.display = 'flex';
+                    document.getElementById('focusPauseBtn2').style.display = 'none';
+                    document.getElementById('focusResumeBtn2').style.display = 'none';
+                    document.getElementById('focusEndBtn2').style.display = 'none';
+                    document.getElementById('timerLabel2').textContent = 'Complete!';
+                    document.querySelector('.focus-timer').style.transform = 'scale(1.04)';
+                    setTimeout(() => {
+                        document.querySelector('.focus-timer').style.transform = 'scale(1)';
+                    }, 300);
+                }
+            }, 1000);
+        }
+        
+        function pauseTimer2() {
+            if (!isRunning2) return;
+            isRunning2 = false;
+            isPaused2 = true;
+            clearInterval(timerInterval2);
+            document.getElementById('focusStartBtn2').style.display = 'none';
+            document.getElementById('focusPauseBtn2').style.display = 'none';
+            document.getElementById('focusResumeBtn2').style.display = 'flex';
+            document.getElementById('focusEndBtn2').style.display = 'flex';
+            document.getElementById('timerLabel2').textContent = 'Paused';
+        }
+        
+        function resumeTimer2() {
+            if (!isPaused2) return;
+            isRunning2 = true;
+            isPaused2 = false;
+            document.getElementById('focusStartBtn2').style.display = 'none';
+            document.getElementById('focusPauseBtn2').style.display = 'flex';
+            document.getElementById('focusResumeBtn2').style.display = 'none';
+            document.getElementById('focusEndBtn2').style.display = 'flex';
+            
+            timerInterval2 = setInterval(() => {
+                remainingSeconds2--;
+                updateTimerDisplay2();
+                if (remainingSeconds2 <= 0) {
+                    clearInterval(timerInterval2);
+                    isRunning2 = false;
+                    document.getElementById('focusStartBtn2').style.display = 'flex';
+                    document.getElementById('focusPauseBtn2').style.display = 'none';
+                    document.getElementById('focusResumeBtn2').style.display = 'none';
+                    document.getElementById('focusEndBtn2').style.display = 'none';
+                    document.getElementById('timerLabel2').textContent = 'Complete!';
+                }
+            }, 1000);
+        }
+        
+        function endTimer2() {
+            clearInterval(timerInterval2);
+            isRunning2 = false;
+            isPaused2 = false;
+            document.getElementById('focusStartBtn2').style.display = 'flex';
+            document.getElementById('focusPauseBtn2').style.display = 'none';
+            document.getElementById('focusResumeBtn2').style.display = 'none';
+            document.getElementById('focusEndBtn2').style.display = 'none';
+            totalSeconds2 = currentPreset2 * 60;
+            remainingSeconds2 = totalSeconds2;
+            updateTimerDisplay2();
+            document.getElementById('timerLabel2').textContent = 'Ready';
+        }
+        
+        // ============================================
+        // ANALYTICS PERIOD
+        // ============================================
+        function setPeriod2(period, btn) {
+            document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        
+        // ============================================
+        // THEME TOGGLE 2
+        // ============================================
+        let isDarkMode2 = true;
+        
+        function toggleTheme2() {
+            isDarkMode2 = !isDarkMode2;
+            const toggle = document.getElementById('themeToggle2');
+            toggle.classList.toggle('active');
+            
+            if (isDarkMode2) {
+                document.documentElement.style.setProperty('--bg-primary', '#F8FAFC');
+                document.documentElement.style.setProperty('--bg-surface', '#FFFFFF');
+                document.documentElement.style.setProperty('--bg-elevated', '#F1F5F9');
+                document.documentElement.style.setProperty('--text-primary', '#0F172A');
+                document.documentElement.style.setProperty('--text-secondary', '#475569');
+                document.documentElement.style.setProperty('--text-muted', '#94A3B8');
+                document.documentElement.style.setProperty('--border-color', '#E2E8F0');
+                document.body.style.background = '#E8EDF5';
+            } else {
+                document.documentElement.style.setProperty('--bg-primary', '#0F172A');
+                document.documentElement.style.setProperty('--bg-surface', '#1E293B');
+                document.documentElement.style.setProperty('--bg-elevated', '#334155');
+                document.documentElement.style.setProperty('--text-primary', '#F8FAFC');
+                document.documentElement.style.setProperty('--text-secondary', '#94A3B8');
+                document.documentElement.style.setProperty('--text-muted', '#64748B');
+                document.documentElement.style.setProperty('--border-color', '#334155');
+                document.body.style.background = '#0A0F1A';
+            }
+        }
+        
+        // ============================================
+        // NOTIFICATION TOGGLE
+        // ============================================
+        document.getElementById('notifToggle2')?.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+        
+        // ============================================
+        // CLICK FEEDBACK
+        // ============================================
+        document.querySelectorAll('.app-item, .quick-action, .settings-item, .analytics-card, .focus-stat, .profile-stat, .badge-item, .insight-item').forEach(el => {
+            el.addEventListener('click', function() {
+                const originalBorder = this.style.borderColor;
+                this.style.borderColor = 'var(--blue-accent)';
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    setTimeout(() => {
+                        this.style.borderColor = originalBorder || '';
+                    }, 300);
+                }, 150);
+            });
+        });
+        
+        // ============================================
+        // SEE ALL LINKS
+        // ============================================
+        document.querySelectorAll('.see-all').forEach(el => {
+            el.addEventListener('click', function() {
+                const original = this.textContent;
+                this.textContent = 'Loading...';
+                setTimeout(() => {
+                    this.textContent = original;
+                }, 800);
+            });
+        });
+        
+        // ============================================
+        // INIT
+        // ============================================
+        console.log('🚀 FocusFlow Professional Theme with Splash Screen!');
+        console.log('⏱️ Splash screen duration: 10 seconds');
+        console.log('🎨 Corporate Clarity - Clean Navy & White');
+        console.log('💡 Click splash to skip after 3 seconds');
+    </script>
+</body>
+</html>
