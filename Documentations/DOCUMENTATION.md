@@ -1,8 +1,12 @@
 # FocusFlow Documentation
 
+![FocusFlow Documentation Cover](docs/images/doc-cover.png)
+
 FocusFlow is a productivity platform that helps students and teams plan tasks, manage projects, collaborate, and stay focused through an organized, distraction-free workspace. It combines task management, scheduling, and workflow tools into a single web application designed to improve productivity and accountability.
 
 ## Project Structure
+
+![Project Structure Diagram](docs/images/project-structure.png)
 
 ```
 FocusFlow/
@@ -18,7 +22,11 @@ FocusFlow/
 
 ## Application Features
 
+![Application Features Overview](docs/images/application-features.png)
+
 ### Theme Variants
+
+![Theme Variants Showcase](docs/images/theme-variants.png)
 
 FocusFlow includes three different theme implementations:
 
@@ -27,6 +35,8 @@ FocusFlow includes three different theme implementations:
 3. **Neon Pulse Theme** (`focus3.html`) - Cyberpunk-inspired interface with Orbitron font and glowing effects
 
 ### Core Functionality
+
+![Core Functionality Overview](docs/images/core-functionality.png)
 
 Each theme implements the same core productivity features:
 
@@ -79,7 +89,11 @@ Each theme implements the same core productivity features:
 
 ## Technical Implementation
 
+![Technical Architecture Diagram](docs/images/technical-architecture.png)
+
 ### Frontend Technologies
+
+![Frontend Technology Stack](docs/images/frontend-tech.png)
 
 - HTML5 Semantic Structure
 - CSS3 with Custom Properties (Variables)
@@ -89,6 +103,8 @@ Each theme implements the same core productivity features:
 - Responsive design principles
 
 ### Design System
+
+![Design System Components](docs/images/design-system.png)
 
 - Consistent spacing and typography
 - Color variables for easy theming
@@ -100,6 +116,8 @@ Each theme implements the same core productivity features:
 
 ### Accessibility Features
 
+![Accessibility Features](docs/images/accessibility.png)
+
 - Proper color contrast ratios
 - Keyboard navigable interface
 - ARIA labels where needed
@@ -108,6 +126,8 @@ Each theme implements the same core productivity features:
 - Semantic HTML structure
 
 ### Performance Optimizations
+
+![Performance Optimization Techniques](docs/images/performance.png)
 
 - Efficient DOM updates
 - Minimal layout thrashing
@@ -118,6 +138,8 @@ Each theme implements the same core productivity features:
 
 ## Data Persistence
 
+![Data Persistence Flow](docs/images/data-persistence.png)
+
 FocusFlow uses browser-based storage mechanisms:
 
 - LocalStorage for persisting user data
@@ -126,6 +148,8 @@ FocusFlow uses browser-based storage mechanisms:
 - Automatic save/load on application start/exit
 
 ## Browser Compatibility
+
+![Browser Compatibility Chart](docs/images/browser-compatibility.png)
 
 FocusFlow is designed to work in all modern browsers:
 
@@ -136,6 +160,8 @@ FocusFlow is designed to work in all modern browsers:
 - Mobile browsers on iOS and Android
 
 ## Future Enhancements
+
+![Future Enhancements Roadmap](docs/images/future-enhancements.png)
 
 Planned features for future versions:
 
@@ -153,6 +179,8 @@ Planned features for future versions:
 
 ## Getting Started for Developers
 
+![Developer Setup Guide](docs/images/developer-setup.png)
+
 To run or modify FocusFlow locally:
 
 1. Clone the repository
@@ -163,6 +191,8 @@ To run or modify FocusFlow locally:
 
 ## Customization
 
+![Theme Customization Guide](docs/images/theme-customization.png)
+
 To create your own theme:
 
 1. Copy one of the existing HTML files
@@ -172,6 +202,8 @@ To create your own theme:
 5. Save and test in your browser
 
 ## Support
+
+![Support and Community](docs/images/support-community.png)
 
 For questions, issues, or contributions:
 

@@ -1,5 +1,7 @@
 # FocusFlow
 
+![FocusFlow Logo](docs/images/logo.png)
+
 FocusFlow is a productivity platform that helps students and teams plan tasks, manage projects, collaborate, and stay focused through an organized, distraction-free workspace. It combines task management, scheduling, and workflow tools into a single web application designed to improve productivity and accountability.
 
 ## Table of Contents
@@ -24,7 +26,11 @@ The application is designed with a focus on simplicity, accessibility, and effec
 
 ## Features
 
+![FocusFlow Features Overview](docs/images/features-overview.png)
+
 ### Task Management
+
+![Task Management Interface](docs/images/task-management.png)
 
 - Create, edit, and delete tasks with due dates and priorities
 - Categorize tasks by project, subject, or custom tags
@@ -34,6 +40,8 @@ The application is designed with a focus on simplicity, accessibility, and effec
 
 ### Project Planning
 
+![Project Planning View](docs/images/project-planning.png)
+
 - Create and manage multiple projects simultaneously
 - Break down projects into milestones and subtasks
 - Visualize project timelines with Gantt-style views
@@ -41,6 +49,8 @@ The application is designed with a focus on simplicity, accessibility, and effec
 - Track project progress with analytics and reporting
 
 ### Calendar & Scheduling
+
+![Calendar and Schedule View](docs/images/calendar-scheduling.png)
 
 - Integrated calendar view for deadlines and events
 - Time blocking functionality for focused work sessions
@@ -50,6 +60,8 @@ The application is designed with a focus on simplicity, accessibility, and effec
 
 ### Collaboration Tools
 
+![Team Collaboration Features](docs/images/collaboration.png)
+
 - Real-time collaboration with team members
 - Commenting and discussion threads on tasks
 - @mentions for notifying team members
@@ -57,6 +69,8 @@ The application is designed with a focus on simplicity, accessibility, and effec
 - Activity feeds and notifications
 
 ### Focus & Productivity Features
+
+![Focus and Productivity Tools](docs/images/focus-productivity.png)
 
 - Pomodoro timer integration
 - Distraction blocking modes
@@ -66,6 +80,8 @@ The application is designed with a focus on simplicity, accessibility, and effec
 
 ### Customization & Personalization
 
+![Customization Options](docs/images/customization.png)
+
 - Customizable dashboard layouts
 - Theme options (light/dark modes)
 - Personalized notifications and reminders
@@ -73,6 +89,8 @@ The application is designed with a focus on simplicity, accessibility, and effec
 - Integration with third-party services
 
 ## Technology Stack
+
+![Technology Stack Diagram](docs/images/tech-stack.png)
 
 ### Frontend
 
@@ -96,6 +114,8 @@ The application is designed with a focus on simplicity, accessibility, and effec
 
 ## Getting Started
 
+![Getting Started Guide](docs/images/getting-started.png)
+
 ### Prerequisites
 
 - A modern web browser (Chrome, Firefox, Safari, Edge)
@@ -116,6 +136,8 @@ Upon first launch, FocusFlow will:
 3. Allow you to create your first project or task
 
 ## Usage
+
+![Application Usage Examples](docs/images/usage-examples.png)
 
 ### Creating Your First Task
 
@@ -199,6 +221,8 @@ As FocusFlow evolves, we plan to implement a RESTful API for extended functional
 - `GET /api/analytics/time-tracking` - Get time tracking data
 
 ## Development
+
+![Development Workflow](docs/images/development-workflow.png)
 
 ### Setting Up the Development Environment
 
