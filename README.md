@@ -1,6 +1,6 @@
 # FocusFlow
 
-![FocusFlow Logo](docs/images/logo.png)
+![FocusFlow Logo](../assets/logo.webp)
 
 FocusFlow is a productivity platform that helps students and teams plan tasks, manage projects, collaborate, and stay focused through an organized, distraction-free workspace. It combines task management, scheduling, and workflow tools into a single web application designed to improve productivity and accountability.
 
